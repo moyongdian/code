@@ -97,9 +97,11 @@ def check_components(app):
                     if not os.path.exists(p + '.' + ext):
                         errors.append(f'{jf}: 组件 "{name}" 缺少 index.{ext}: {ref}')
 
-    # 第三方组件包：每个组件目录应具备 js/json/wxml（wxss 可选）
+    # 第三方组件包：仅「真正的组件目录」（含 index.json）需要四件套中的 js/json/wxml
+    # 注意 common/ 与 wxs/ 是共享模块目录，不是组件，不应按组件完整性要求校验
     if os.path.isdir('vant'):
-        comps = [d for d in sorted(os.listdir('vant')) if os.path.isdir(os.path.join('vant', d))]
+        comps = [d for d in sorted(os.listdir('vant'))
+                 if os.path.isfile(os.path.join('vant', d, 'index.json'))]
         stats['vant'] = len(comps)
         for c in comps:
             for ext in ('js', 'json', 'wxml'):
@@ -192,6 +194,64 @@ def check_icons():
                     errors.append(f'{p}: JS 中引用的图标名不存在: "{name}"')
 
 
+def check_dependencies():
+    """第三方组件包的完整依赖校验。
+    组件的依赖有四类，缺任一类都会在开发者工具中报编译错误：
+      1) JSON  usingComponents
+      2) WXML <wxs src="...">
+      3) WXSS @import
+      4) WXML <template|import|include src="...">
+    （本项目曾因只解析 usingComponents 而漏掉 wxs/ 与 common/ 目录）
+    """
+    if not os.path.isdir('vant'):
+        return
+    for dp, _, fs in os.walk('vant'):
+        for f in fs:
+            p = os.path.join(dp, f)
+            try:
+                s = open(p, encoding='utf-8', errors='ignore').read()
+            except Exception:
+                continue
+
+            if f.endswith('.json'):
+                try:
+                    j = json.loads(s)
+                except Exception:
+                    continue
+                for name, ref in (j.get('usingComponents') or {}).items():
+                    c = os.path.normpath(os.path.join(dp, ref))
+                    if not (os.path.exists(c + '.json') and os.path.exists(c + '.wxml')):
+                        errors.append(f'{p}: usingComponents "{name}" 缺失 -> {ref}')
+
+            if f.endswith('.wxml'):
+                for m in re.finditer(r'<wxs[^>]*src="([^"]+)"', s):
+                    c = os.path.normpath(os.path.join(dp, m.group(1)))
+                    if not os.path.exists(c):
+                        errors.append(f'{p}: <wxs src="{m.group(1)}"> 文件缺失（wxs 是共享模块，勿遗漏）')
+                for m in re.finditer(r'<(?:template|import|include)[^>]*src="([^"]+)"', s):
+                    c = os.path.normpath(os.path.join(dp, m.group(1)))
+                    if not os.path.exists(c):
+                        errors.append(f'{p}: <template src="{m.group(1)}"> 文件缺失')
+
+            if f.endswith('.wxss'):
+                for m in re.finditer(r'@import\s+["\']([^"\']+)["\']', s):
+                    ref = m.group(1)
+                    if ref.startswith(('http', '//', '/')):
+                        continue
+                    c = os.path.normpath(os.path.join(dp, ref))
+                    if not os.path.exists(c):
+                        errors.append(f'{p}: @import "{ref}" 文件缺失')
+
+            if f.endswith('.js'):
+                for m in re.finditer(r"require\(['\"]([^'\"]+)['\"]\)", s):
+                    ref = m.group(1)
+                    if not ref.startswith('.'):
+                        continue
+                    c = os.path.normpath(os.path.join(dp, ref))
+                    if not (os.path.exists(c) or os.path.exists(c + '.js')):
+                        errors.append(f'{p}: require("{ref}") 文件缺失')
+
+
 def check_structure():
     try:
         app = json.load(open('app.json', encoding='utf-8'))
@@ -273,6 +333,7 @@ def main():
     check_structure()
     check_wxml_tags()
     check_icons()
+    check_dependencies()
 
     print('=' * 66)
     print(f"页面 {stats['pages']} 个 | WXML {stats['wxml']} 个 | 表达式 {stats['expr']} 个 | "
