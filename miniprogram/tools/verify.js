@@ -453,9 +453,15 @@ async function main() {
   if (addrId) { await api.address.remove(addrId).catch(() => {}); console.log('  已删除测试地址 id=' + addrId) }
   await api.order.remove(newOrder.id).catch(() => {})
   console.log('  已删除测试订单 id=' + newOrder.id)
+  // 注意：/collect/selectByUid 返回的是 Business 列表，商家 id 在 c.id 上
   const cols = await api.collect.list(auth.uid()).catch(() => [])
-  const colRec = (cols || []).find((c) => String(c.bid) === String(biz.id))
-  if (colRec) { await api.collect.update({ bid: biz.id }).catch(() => {}); console.log('  已取消测试收藏') }
+  const colRec = (cols || []).find((c) => String(c.id) === String(biz.id))
+  if (colRec) {
+    await api.collect.update({ bid: biz.id }).catch(() => {})
+    const left = await api.collect.list(auth.uid()).catch(() => [])
+    const stillThere = (left || []).some((c) => String(c.id) === String(biz.id))
+    console.log('  已取消测试收藏' + (stillThere ? '（⚠️ 仍残留）' : '（已验证清除）'))
+  }
 
   // ---------- 汇总 ----------
   section('联调验证结果')
