@@ -4,7 +4,7 @@
   <view class="head" wx:if="{{business}}">
     <view class="head-top">
       <image class="head-logo" src="{{business.logoUrl}}" mode="aspectFill" wx:if="{{business.logoUrl}}" />
-      <view class="head-logo head-logo-ph" wx:else>{{business.name[0]}}</view>
+      <view class="head-logo head-logo-ph" wx:else>{{business.nameInitial}}</view>
 
       <view class="head-info">
         <view class="head-name ellipsis">{{business.name}}</view>
@@ -96,7 +96,7 @@
     </view>
     <view class="comment" wx:for="{{comments}}" wx:key="id">
       <view class="comment-top">
-        <view class="comment-avatar">{{item.userName[0]}}</view>
+        <view class="comment-avatar">{{item.userInitial}}</view>
         <view class="comment-user">
           <view class="comment-name">{{item.userName}}</view>
           <view class="comment-star">{{item.starText}}</view>

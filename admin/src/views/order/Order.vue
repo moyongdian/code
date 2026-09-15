@@ -24,7 +24,9 @@
       </el-table-column>
       <el-table-column prop="user" label="收货人" width="90" />
       <el-table-column prop="phone" label="电话" width="120" />
-      <el-table-column prop="business" label="商家" width="130" />
+      <el-table-column label="商家" width="130" show-overflow-tooltip>
+        <template #default="{ row }">{{ row.business?.name || '—' }}</template>
+      </el-table-column>
       <el-table-column prop="amount" label="原价" width="80">
         <template #default="{ row }">¥{{ row.amount?.toFixed?.(2) ?? row.amount }}</template>
       </el-table-column>

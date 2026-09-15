@@ -12,3 +12,5 @@ files/
 *.log
 *.err
 *.tmp
+# 微信开发者工具本地私有配置（各人机器自动生成，不入库）
+project.private.config.json

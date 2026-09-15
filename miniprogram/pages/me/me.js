@@ -7,6 +7,9 @@ Page({
     logged: false,
     user: null,
     avatarUrl: '',
+    // 头像占位文字（无头像时显示名字首字符）。
+    // 注意：不能写成 {{(a || b)[0]}}，微信 WXML 不支持对括号表达式取下标。
+    avatarText: '?',
     orderCounts: { pending: 0, delivering: 0, toComment: 0 },
     hasDeliveryEntry: false
   },
@@ -18,12 +21,19 @@ Page({
       logged,
       user,
       avatarUrl: user && user.avatar ? api.file.fullUrl(user.avatar) : '',
+      avatarText: this.initialOf(user),
       hasDeliveryEntry: !!(user && user.realStatus)
     })
     if (logged) {
       this.loadCounts()
       this.refreshProfile()
     }
+  },
+
+  /** 取用户名字的首字符作为头像占位 */
+  initialOf(user) {
+    const name = (user && (user.name || user.username)) || ''
+    return String(name).trim().charAt(0) || '?'
   },
 
   onPullDownRefresh() {
@@ -44,7 +54,8 @@ Page({
       else auth.setUser(merged)
       this.setData({
         user: merged,
-        avatarUrl: merged.avatar ? api.file.fullUrl(merged.avatar) : ''
+        avatarUrl: merged.avatar ? api.file.fullUrl(merged.avatar) : '',
+        avatarText: this.initialOf(merged)
       })
     }).catch(() => {})
   },
@@ -133,6 +144,7 @@ Page({
         logged: false,
         user: null,
         avatarUrl: '',
+        avatarText: '?',
         orderCounts: { pending: 0, delivering: 0, toComment: 0 },
         hasDeliveryEntry: false
       })

@@ -108,6 +108,8 @@ Page({
     return api.business.listApp().then((list) => {
       const businesses = (list || []).map((b) => Object.assign({}, b, {
         logoUrl: api.file.fullUrl(b.logo),
+        // 无 Logo 时的占位首字符（WXML 不支持 {{(a||b)[0]}} 这类取下标写法）
+        nameInitial: String(b.name || '?').trim().charAt(0) || '?',
         scoreText: util.num(b.score) > 0 ? util.num(b.score).toFixed(1) : '暂无评分',
         minAmountText: util.priceText(b.minAmount),
         openText: b.openStatus === 1 ? '营业中' : '休息中',

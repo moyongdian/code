@@ -45,6 +45,7 @@ Page({
       this.setData({
         business: Object.assign({}, b, {
           logoUrl: api.file.fullUrl(b.logo),
+          nameInitial: String(b.name || '?').trim().charAt(0) || '?',
           scoreText: util.num(b.score) > 0 ? util.num(b.score).toFixed(1) : '暂无评分',
           minAmountText: util.priceText(b.minAmount),
           openText: b.openStatus === 1 ? '营业中' : '休息中'
@@ -91,14 +92,18 @@ Page({
   /* -------------------- 评价 -------------------- */
   loadComments() {
     return api.comment.listByBusiness(this.data.bid).then((list) => {
-      const comments = (list || []).map((c) => ({
-        id: c.id,
-        star: util.num(c.star),
-        starText: '★★★★★'.slice(0, Math.max(0, Math.round(util.num(c.star)))),
-        content: c.content || '',
-        time: util.friendlyTime(c.time),
-        userName: (c.user && (c.user.name || c.user.username)) || '匿名用户'
-      }))
+      const comments = (list || []).map((c) => {
+        const userName = (c.user && (c.user.name || c.user.username)) || '匿名用户'
+        return {
+          id: c.id,
+          star: util.num(c.star),
+          starText: '★★★★★'.slice(0, Math.max(0, Math.round(util.num(c.star)))),
+          content: c.content || '',
+          time: util.friendlyTime(c.time),
+          userName,
+          userInitial: String(userName).trim().charAt(0) || '匿'
+        }
+      })
       this.setData({ comments })
     }).catch(() => {})
   },

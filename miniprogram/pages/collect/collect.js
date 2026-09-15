@@ -29,6 +29,7 @@ Page({
         const mapped = (list || []).map((b) => ({
           bid: b.id,
           name: b.name || '',
+          nameInitial: String(b.name || '?').trim().charAt(0) || '?',
           logoUrl: api.file.fullUrl(b.logo),
           scoreText: util.num(b.score) > 0 ? util.num(b.score).toFixed(1) : '暂无评分',
           openText: util.num(b.openStatus) === 1 ? '营业中' : '休息中',

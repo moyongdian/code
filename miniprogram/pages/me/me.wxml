@@ -4,7 +4,7 @@
     <block wx:if="{{logged}}">
       <view class="hero-user">
         <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
-        <view class="avatar avatar-ph" wx:else>{{(user.name || user.username || 'U')[0]}}</view>
+        <view class="avatar avatar-ph" wx:else>{{avatarText}}</view>
         <view class="hero-info">
           <view class="hero-name">{{user.name || user.username}}</view>
           <view class="hero-sub">账号：{{user.username}} · {{user.role || '用户'}}</view>

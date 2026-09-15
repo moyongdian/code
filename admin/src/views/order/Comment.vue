@@ -9,9 +9,13 @@
     <el-table :data="list" v-loading="loading" border stripe @selection-change="(v) => (selected = v)">
       <el-table-column type="selection" width="45" />
       <el-table-column prop="id" label="ID" width="60" />
-      <el-table-column prop="username" label="用户" width="120" />
-      <el-table-column prop="business" label="商家" width="130" />
-      <el-table-column prop="contents" label="评论内容" min-width="200" show-overflow-tooltip />
+      <el-table-column label="用户" width="120">
+        <template #default="{ row }">{{ row.user?.name || row.user?.username || '—' }}</template>
+      </el-table-column>
+      <el-table-column label="商家" width="130" show-overflow-tooltip>
+        <template #default="{ row }">{{ row.business?.name || '—' }}</template>
+      </el-table-column>
+      <el-table-column prop="content" label="评论内容" min-width="200" show-overflow-tooltip />
       <el-table-column prop="pid" label="商品ID" width="80" />
       <el-table-column label="操作" width="90" fixed="right">
         <template #default="{ row }">

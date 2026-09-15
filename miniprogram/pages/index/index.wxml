@@ -49,7 +49,7 @@
   <view wx:else>
     <view class="shop" wx:for="{{businesses}}" wx:key="id" data-id="{{item.id}}" bindtap="goBusiness">
       <image class="shop-logo" src="{{item.logoUrl}}" mode="aspectFill" wx:if="{{item.logoUrl}}" />
-      <view class="shop-logo shop-logo-ph" wx:else>{{item.name[0]}}</view>
+      <view class="shop-logo shop-logo-ph" wx:else>{{item.nameInitial}}</view>
 
       <view class="shop-main">
         <view class="shop-name ellipsis">{{item.name}}</view>
