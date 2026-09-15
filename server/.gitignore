@@ -1,0 +1,24 @@
+# Build / Runtime
+server.exe
+*.exe
+*.exe~
+/data/*.db
+/data/*.db-*
+/files/*
+!/files/.gitkeep
+logs/
+*.log
+*.err
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+bin/
+coverage.out

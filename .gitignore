@@ -1,0 +1,14 @@
+# 不在本次提交范围内的目录
+.idea/
+myvue/
+uniapp/
+springboot/
+files/
+0
+功能说明书.md
+说明文档.md
+
+# 日志与临时文件
+*.log
+*.err
+*.tmp

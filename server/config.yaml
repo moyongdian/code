@@ -1,0 +1,19 @@
+server:
+  port: 9090            # 服务端口
+
+ip: localhost           # 文件访问链接拼接用域名/IP（如 localhost 或 192.168.x.x）
+
+database:
+  driver: sqlite        # sqlite | mysql
+  dsn: "./data/honey2024.db"
+  # mysql 示例（切换到 MySQL 时填写）：
+  # driver: mysql
+  # dsn: "root:password@tcp(127.0.0.1:3306)/honey2024?charset=utf8mb4&parseTime=True&loc=Local"
+
+jwt:
+  secret: "campus-delivery-secret-change-me"
+  expire-hours: 2
+
+upload:
+  dir: "./files"        # 上传文件存储目录
+  max-size: 25          # 单文件最大 MB
