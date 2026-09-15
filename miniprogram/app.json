@@ -35,19 +35,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "点餐",
+        "text": "my ticket",
         "iconPath": "images/tab-home.png",
         "selectedIconPath": "images/tab-home-active.png"
       },
       {
         "pagePath": "pages/orders/orders",
-        "text": "订单",
+        "text": "my order",
         "iconPath": "images/tab-orders.png",
         "selectedIconPath": "images/tab-orders-active.png"
       },
       {
         "pagePath": "pages/me/me",
-        "text": "我的",
+        "text": "my account",
         "iconPath": "images/tab-me.png",
         "selectedIconPath": "images/tab-me-active.png"
       }
