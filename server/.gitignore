@@ -22,3 +22,6 @@ Thumbs.db
 # Go
 bin/
 coverage.out
+
+# Linux 构建产物（go build -o server . 生成，无扩展名，故上面的 *.exe 匹配不到）
+/server
