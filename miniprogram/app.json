@@ -22,15 +22,17 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ff6b35",
+    "navigationBarBackgroundColor": "#0a0e17",
     "navigationBarTitleText": "校园外卖",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#f5f6f8"
+    "backgroundColor": "#0a0e17",
+    "backgroundColorTop": "#0a0e17",
+    "backgroundColorBottom": "#0a0e17"
   },
   "tabBar": {
-    "color": "#8c94a3",
-    "selectedColor": "#ff6b35",
-    "backgroundColor": "#ffffff",
+    "color": "#63708a",
+    "selectedColor": "#22d3ee",
+    "backgroundColor": "#111827",
     "borderStyle": "black",
     "list": [
       {
@@ -52,6 +54,38 @@
         "selectedIconPath": "images/tab-me-active.png"
       }
     ]
+  },
+  "usingComponents": {
+    "van-icon": "vant/icon/index",
+    "van-button": "vant/button/index",
+    "van-cell": "vant/cell/index",
+    "van-cell-group": "vant/cell-group/index",
+    "van-tag": "vant/tag/index",
+    "van-empty": "vant/empty/index",
+    "van-loading": "vant/loading/index",
+    "van-divider": "vant/divider/index",
+    "van-field": "vant/field/index",
+    "van-stepper": "vant/stepper/index",
+    "van-search": "vant/search/index",
+    "van-popup": "vant/popup/index",
+    "van-dialog": "vant/dialog/index",
+    "van-toast": "vant/toast/index",
+    "van-notice-bar": "vant/notice-bar/index",
+    "van-skeleton": "vant/skeleton/index",
+    "van-tabs": "vant/tabs/index",
+    "van-tab": "vant/tab/index",
+    "van-card": "vant/card/index",
+    "van-swipe-cell": "vant/swipe-cell/index",
+    "van-submit-bar": "vant/submit-bar/index",
+    "van-goods-action": "vant/goods-action/index",
+    "van-goods-action-button": "vant/goods-action-button/index",
+    "van-grid": "vant/grid/index",
+    "van-grid-item": "vant/grid-item/index",
+    "van-image": "vant/image/index",
+    "van-overlay": "vant/overlay/index",
+    "van-sticky": "vant/sticky/index",
+    "van-transition": "vant/transition/index",
+    "van-config-provider": "vant/config-provider/index"
   },
   "networkTimeout": {
     "request": 15000,

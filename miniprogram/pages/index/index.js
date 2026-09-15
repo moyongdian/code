@@ -88,6 +88,7 @@ Page({
   /**
    * 分类入口：后端无「分类首页」接口，这里从公开商品列表中聚合出分类维度，
    * 既有真实数据支撑，也能在无数据时给出兜底入口。
+   * 图标使用 Vant 内置图标，按名称关键字匹配（无需额外图标资源）。
    */
   loadCategories() {
     return api.catalog.allProducts().then((list) => {
@@ -97,7 +98,7 @@ Page({
         const name = p.category
         if (name && !seen[name]) {
           seen[name] = true
-          categories.push({ name, cid: p.cid, bid: p.bid })
+          categories.push({ name, cid: p.cid, bid: p.bid, icon: util.categoryIcon(name) })
         }
       })
       this.setData({ categories: categories.slice(0, 8) })

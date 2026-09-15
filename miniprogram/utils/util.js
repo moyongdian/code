@@ -107,8 +107,28 @@ function confirm(content, title) {
   })
 }
 
+/**
+ * 分类名 → Vant 图标名
+ * 只用 @vant/icons 内置图标，避免引入额外图标资源（小程序不方便加载图标字体文件）。
+ */
+function categoryIcon(name) {
+  const s = String(name || '')
+  const rules = [
+    [/饮|茶|咖啡|奶|果汁|酒|水|甜/, 'birthday-cake-o'],
+    [/果|水果|沙拉|轻食/, 'flower-o'],
+    [/主|饭|盖|面|粉|粥|套餐/, 'shop-o'],
+    [/小食|小吃|零食|烧烤|炸|点/, 'gift-o'],
+    [/汤|锅|煲|炒/, 'fire-o'],
+    [/早|早餐|包/, 'clock-o'],
+  ]
+  for (const [re, icon] of rules) {
+    if (re.test(s)) return icon
+  }
+  return 'apps-o'
+}
+
 module.exports = {
   money, priceText, num, isPhone, isIdCard,
   statusText, statusColor, friendlyTime, plainText, richHtml,
-  toast, confirm, STATUS_MAP
+  toast, confirm, STATUS_MAP, categoryIcon
 }

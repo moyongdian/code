@@ -69,6 +69,111 @@ def check_expressions():
                     errors.append(f'{p}:{line}  {msg}\n        表达式: {expr[:90]}')
 
 
+def check_components(app):
+    """校验 usingComponents 引用：相对路径必须真实存在；同时检查 WXML 用到的
+    自定义组件是否已在页面（或 app.json 全局）注册。"""
+    global_comps = set((app.get('usingComponents') or {}).keys())
+
+    # 1) 所有 usingComponents 指向的组件文件必须存在
+    json_files = ['app.json']
+    for dp, _, fs in os.walk('pages'):
+        json_files += [os.path.join(dp, f) for f in fs if f.endswith('.json')]
+    for jf in json_files:
+        try:
+            j = json.load(open(jf, encoding='utf-8'))
+        except Exception:
+            continue
+        for name, ref in (j.get('usingComponents') or {}).items():
+            base = os.path.dirname(jf)
+            p = os.path.normpath(os.path.join(base, ref))
+            if not os.path.exists(p + '.json') and not os.path.exists(p + '.wxml'):
+                errors.append(f'{jf}: 组件 "{name}" 指向的路径不存在: {ref}')
+
+    # 2) WXML 里用到的自定义组件（含连字符的非内置标签）须已注册
+    builtin = {'scroll-view', 'swiper', 'swiper-item', 'movable-area', 'movable-view',
+               'cover-view', 'cover-image', 'rich-text', 'web-view', 'open-data',
+               'functional-page-navigator', 'official-account', 'navigation-bar',
+               'page-meta', 'match-media', 'keyboard-accessory', 'picker-view',
+               'picker-view-column', 'checkbox-group', 'radio-group', 'root-portal',
+               'share-element', 'page-container', 'voip-room', 'ad-custom', 'channel-live',
+               'channel-video', 'inline-payment-panel', 'grid-view', 'list-view',
+               'snapshot', 'double-tap-gesture-handler', 'scale-gesture-handler',
+               'pan-gesture-handler', 'tap-gesture-handler', 'vertical-drag-gesture-handler',
+               'horizontal-drag-gesture-handler', 'force-press-gesture-handler',
+               'long-press-gesture-handler', 'draggable-sheet', 'nested-scroll-header',
+               'nested-scroll-body', 'span', 'wxs'}
+    for p in collect_wxml():
+        s = open(p, encoding='utf-8').read()
+        used = set()
+        for m in re.finditer(r'<([a-z][a-z0-9]*-[a-z0-9-]+)[\s/>]', s):
+            tag = m.group(1)
+            if tag in builtin or tag.startswith('van-') and False:
+                continue
+            used.add(tag)
+        if not used:
+            continue
+        pj = p[:-5] + '.json'
+        local = set()
+        if os.path.exists(pj):
+            try:
+                local = set((json.load(open(pj, encoding='utf-8')).get('usingComponents') or {}).keys())
+            except Exception:
+                pass
+        for tag in sorted(used):
+            if tag in global_comps or tag in local:
+                continue
+            # wxs / template 等非组件标签排除
+            if tag.startswith('wxs') or tag.startswith('template'):
+                continue
+            errors.append(f'{p}: 使用了未注册组件 <{tag}>（页面 json 与 app.json 均未声明）')
+
+
+def check_icons():
+    """校验 van-icon 的 name 是否为真实存在的 vant 图标。
+    图标名写错不会报错，只会静默显示空白，因此必须静态校验。"""
+    css = 'vant/icon/index.wxss'
+    if not os.path.exists(css):
+        warnings.append('未找到 vant/icon/index.wxss，跳过图标名校验')
+        return
+    src = open(css, encoding='utf-8').read()
+    known = set(re.findall(r'\.van-icon-([a-z0-9-]+):before', src))
+    if not known:
+        warnings.append('未能从 vant 图标样式中解析出图标名')
+        return
+    stats['icons'] = len(known)
+
+    # 1) WXML：van-icon 的 name 字面量
+    for p in collect_wxml():
+        s = open(p, encoding='utf-8').read()
+        for m in re.finditer(r'<van-icon[^>]*\bname="([^"{}]+)"', s):
+            name = m.group(1).strip()
+            if name and name not in known:
+                line = s[:m.start()].count('\n') + 1
+                errors.append(f'{p}:{line} van-icon 图标名不存在: "{name}"')
+
+    # 2) JS：icon: 'xxx' / icon = 'xxx' 形式的图标名（覆盖 categoryIcon 等映射）
+    for dp, _, fs in os.walk('.'):
+        if dp.startswith('./vant') or dp.startswith('vant') or 'node_modules' in dp:
+            continue
+        for f in fs:
+            if not f.endswith('.js'):
+                continue
+            p = os.path.join(dp, f)
+            js = open(p, encoding='utf-8').read()
+            # 排除 wx.showToast 的 icon 参数（none/success/loading/error）
+            TOAST_ICONS = {'none', 'success', 'loading', 'error', 'success_no_circle'}
+            for m in re.finditer(r"""\bicon['"]?\s*[:=]\s*['"]([a-z0-9-]+)['"]""", js):
+                name = m.group(1)
+                if name in TOAST_ICONS or name not in known:
+                    if name not in TOAST_ICONS:
+                        errors.append(f'{p}: JS 中引用的图标名不存在: "{name}"')
+            # 数组/对象里成对出现的 [正则, '图标名']
+            for m in re.finditer(r"""\[\s*/[^/]+/\s*,\s*['"]([a-z0-9-]+)['"]\s*\]""", js):
+                name = m.group(1)
+                if name not in known:
+                    errors.append(f'{p}: JS 中引用的图标名不存在: "{name}"')
+
+
 def check_structure():
     try:
         app = json.load(open('app.json', encoding='utf-8'))
@@ -99,9 +204,9 @@ def check_structure():
     for d in sorted(registered - dirs):
         errors.append(f'app.json 声明了 pages/{d} 但目录不存在')
 
-    # 所有 JSON 合法性
+    # 所有 JSON 合法性（排除第三方组件目录）
     for dp, _, fs in os.walk('.'):
-        if 'node_modules' in dp:
+        if 'node_modules' in dp or dp.startswith('./vant') or dp.startswith('vant'):
             continue
         for f in fs:
             if f.endswith('.json'):
@@ -110,6 +215,8 @@ def check_structure():
                     json.load(open(p, encoding='utf-8'))
                 except Exception as e:
                     errors.append(f'JSON 解析失败 {p}: {e}')
+
+    check_components(app)
 
 
 def check_wxml_tags():
@@ -146,9 +253,10 @@ def main():
     check_expressions()
     check_structure()
     check_wxml_tags()
+    check_icons()
 
     print('=' * 66)
-    print(f"页面 {stats['pages']} 个 | WXML {stats['wxml']} 个 | 表达式 {stats['expr']} 个")
+    print(f"页面 {stats['pages']} 个 | WXML {stats['wxml']} 个 | 表达式 {stats['expr']} 个 | 可用图标 {stats.get('icons','?')} 个")
     print('=' * 66)
     if errors:
         print(f'\n❌ 错误 {len(errors)} 项：')
