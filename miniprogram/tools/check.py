@@ -86,8 +86,26 @@ def check_components(app):
         for name, ref in (j.get('usingComponents') or {}).items():
             base = os.path.dirname(jf)
             p = os.path.normpath(os.path.join(base, ref))
-            if not os.path.exists(p + '.json') and not os.path.exists(p + '.wxml'):
+            # 组件可以是 index.json/index.wxml 这类文件组，也可以是目录
+            is_file_group = os.path.exists(p + '.json') and os.path.exists(p + '.wxml')
+            is_dir = os.path.isdir(p) and os.path.exists(os.path.join(p, 'index.json'))
+            if not (is_file_group or is_dir):
                 errors.append(f'{jf}: 组件 "{name}" 指向的路径不存在: {ref}')
+            elif is_file_group:
+                # 文件组形式必须同时具备 js/json/wxml（wxss 可选，部分组件无样式）
+                for ext in ('js', 'json', 'wxml'):
+                    if not os.path.exists(p + '.' + ext):
+                        errors.append(f'{jf}: 组件 "{name}" 缺少 index.{ext}: {ref}')
+
+    # 第三方组件包：每个组件目录应具备 js/json/wxml（wxss 可选）
+    if os.path.isdir('vant'):
+        comps = [d for d in sorted(os.listdir('vant')) if os.path.isdir(os.path.join('vant', d))]
+        stats['vant'] = len(comps)
+        for c in comps:
+            for ext in ('js', 'json', 'wxml'):
+                f = os.path.join('vant', c, 'index.' + ext)
+                if not os.path.exists(f):
+                    errors.append(f'vant 组件不完整: 缺少 {f}')
 
     # 2) WXML 里用到的自定义组件（含连字符的非内置标签）须已注册
     builtin = {'scroll-view', 'swiper', 'swiper-item', 'movable-area', 'movable-view',
@@ -257,7 +275,8 @@ def main():
     check_icons()
 
     print('=' * 66)
-    print(f"页面 {stats['pages']} 个 | WXML {stats['wxml']} 个 | 表达式 {stats['expr']} 个 | 可用图标 {stats.get('icons','?')} 个")
+    print(f"页面 {stats['pages']} 个 | WXML {stats['wxml']} 个 | 表达式 {stats['expr']} 个 | "
+          f"可用图标 {stats.get('icons','?')} 个 | vant 组件 {stats.get('vant','?')} 个")
     print('=' * 66)
     if errors:
         print(f'\n❌ 错误 {len(errors)} 项：')
