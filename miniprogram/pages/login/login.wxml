@@ -1,39 +1,69 @@
+<!-- 登录：极简科技风 -->
 <view class="login-page">
+  <view class="glow glow-1"></view>
+  <view class="glow glow-2"></view>
+
+  <!-- 品牌区 -->
   <view class="brand">
-    <view class="logo">🍜</view>
-    <view class="brand-name">校园外卖点餐</view>
-    <view class="brand-sub">新鲜现炒 · 30 分钟送达</view>
+    <view class="brand-mark">
+      <van-icon name="fire-o" size="64rpx" color="#04121a" />
+    </view>
+    <view class="brand-name">校园外卖</view>
+    <view class="brand-sub mono">CAMPUS DELIVERY PLATFORM</view>
   </view>
 
+  <!-- 表单卡片 -->
   <view class="form-card">
-    <view class="field">
-      <text class="field-label">用户名</text>
-      <input class="field-input" placeholder="请输入用户名" placeholder-class="field-input-placeholder"
+    <view class="form-title">账号登录</view>
+
+    <view class="input-group">
+      <van-icon name="manager-o" size="34rpx" color="var(--text-3)" />
+      <input class="input" placeholder="请输入用户名" placeholder-class="input-ph"
              value="{{username}}" data-field="username" bindinput="onInput" />
     </view>
-    <view class="field">
-      <text class="field-label">密码</text>
-      <input class="field-input" password placeholder="请输入密码" placeholder-class="field-input-placeholder"
+
+    <view class="input-group">
+      <van-icon name="lock" size="34rpx" color="var(--text-3)" />
+      <input class="input" password placeholder="请输入密码" placeholder-class="input-ph"
              value="{{password}}" data-field="password" bindinput="onInput"
              confirm-type="done" bindconfirm="onSubmit" />
     </view>
 
-    <button class="btn-primary login-btn" loading="{{loading}}" disabled="{{loading}}" bindtap="onSubmit">
-      {{loading ? '登录中…' : '登 录'}}
-    </button>
+    <view class="btn btn-primary login-btn {{loading ? 'disabled' : ''}}" bindtap="onSubmit">
+      <van-loading wx:if="{{loading}}" size="32rpx" color="#04121a" />
+      <text wx:else>登 录</text>
+    </view>
 
     <view class="links">
       <text class="link" bindtap="goRegister">注册账号</text>
+      <text class="link-sep">·</text>
       <text class="link" bindtap="goReset">忘记密码</text>
     </view>
   </view>
 
+  <!-- 测试账号 -->
   <view class="demo">
-    <view class="demo-title">联调测试账号（点击填充）</view>
+    <view class="demo-head">
+      <view class="demo-line"></view>
+      <text>联调测试账号</text>
+      <view class="demo-line"></view>
+    </view>
     <view class="demo-list">
-      <view class="demo-item" data-k="user" bindtap="useDemo">普通用户 test / 123456</view>
-      <view class="demo-item" data-k="shop" bindtap="useDemo">商家店主 shop / 123456</view>
-      <view class="demo-item" data-k="admin" bindtap="useDemo">管理员 admin / admin123</view>
+      <view class="demo-item" data-k="user" bindtap="useDemo">
+        <van-icon name="user-o" size="30rpx" color="var(--accent)" />
+        <text class="demo-role">普通用户</text>
+        <text class="demo-acc mono">test / 123456</text>
+      </view>
+      <view class="demo-item" data-k="shop" bindtap="useDemo">
+        <van-icon name="shop-o" size="30rpx" color="var(--warn)" />
+        <text class="demo-role">商家店主</text>
+        <text class="demo-acc mono">shop / 123456</text>
+      </view>
+      <view class="demo-item" data-k="admin" bindtap="useDemo">
+        <van-icon name="setting-o" size="30rpx" color="var(--accent-2)" />
+        <text class="demo-role">管理员</text>
+        <text class="demo-acc mono">admin / admin123</text>
+      </view>
     </view>
   </view>
 </view>

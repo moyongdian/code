@@ -1,74 +1,18 @@
+/* 我的收藏 —— 极简科技风 */
 .shop {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  margin: 20rpx 24rpx 0;
-  border-radius: 20rpx;
-  padding: 24rpx;
-  box-shadow: 0 2rpx 12rpx rgba(24, 33, 56, 0.04);
+  display: flex; align-items: center;
+  background: var(--surface);
+  border: 1rpx solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-3);
 }
-
-.shop-logo {
-  width: 128rpx;
-  height: 128rpx;
-  border-radius: 18rpx;
-  background: #f2f3f5;
-  flex-shrink: 0;
-}
-
-.shop-logo-ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 46rpx;
-  font-weight: 700;
-  color: #ff8a4c;
-  background: #fff2ea;
-}
-
-.shop-main {
-  flex: 1;
-  margin-left: 20rpx;
-  overflow: hidden;
-}
-
-.shop-name {
-  font-size: 30rpx;
-  font-weight: 700;
-}
-
-.shop-meta {
-  font-size: 23rpx;
-  color: #8c94a3;
-  margin-top: 10rpx;
-  display: flex;
-  align-items: center;
-}
-
-.shop-score {
-  color: #ff9a2e;
-  font-weight: 600;
-}
-
-.shop-dot {
-  margin: 0 8rpx;
-}
-
-.shop-addr {
-  font-size: 23rpx;
-  color: #a3a9b5;
-  margin-top: 10rpx;
-}
-
-.shop-time {
-  font-size: 21rpx;
-  color: #c9ced8;
-  margin-top: 8rpx;
-}
-
-.cancel {
-  font-size: 24rpx;
-  color: #a3a9b5;
-  padding: 10rpx 0 10rpx 16rpx;
-  flex-shrink: 0;
-}
+.shop-logo { width: 128rpx; height: 128rpx; border-radius: var(--r-md); background: var(--surface-2); flex-shrink: 0; }
+.shop-logo-ph { display: flex; align-items: center; justify-content: center; }
+.shop-main { margin: 0 var(--sp-2); min-width: 0; }
+.shop-name { font-size: var(--fs-md); font-weight: 700; }
+.shop-meta { display: flex; align-items: center; margin-top: 10rpx; font-size: var(--fs-xs); color: var(--text-3); }
+.shop-meta .score { margin-left: 6rpx; color: var(--warn); font-weight: 600; }
+.shop-meta .sep { margin: 0 10rpx; opacity: 0.4; }
+.shop-addr { font-size: var(--fs-xs); color: var(--text-3); margin-top: 10rpx; }
+.cancel { padding: 12rpx 0 12rpx 16rpx; flex-shrink: 0; }

@@ -1,12 +1,11 @@
+<!-- 我的订单：极简科技风 -->
 <view class="page">
+
   <!-- 未登录 -->
   <block wx:if="{{!logged}}">
-    <view class="empty">
-      <text class="empty-icon">🔐</text>
-      <text>登录后查看订单</text>
-    </view>
-    <view class="empty-actions">
-      <button class="btn-primary" bindtap="goLogin">立即登录</button>
+    <van-empty image="search" description="登录后查看订单" />
+    <view class="empty-action">
+      <view class="btn btn-primary" bindtap="goLogin">立即登录</view>
     </view>
   </block>
 
@@ -16,48 +15,53 @@
       <view class="tab {{active === item ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this"
             data-tab="{{item}}" bindtap="switchTab">
         {{item}}
+        <view class="tab-bar"></view>
       </view>
     </view>
 
     <view wx:if="{{loading}}" class="loading">加载中…</view>
 
-    <view wx:elif="{{!orders.length}}" class="empty">
-      <text class="empty-icon">📋</text>
-      <text>暂无{{active === '全部' ? '' : active}}订单</text>
-    </view>
+    <van-empty wx:elif="{{!orders.length}}" image="search"
+               description="暂无{{active === '全部' ? '' : active}}订单" />
 
-    <view wx:else>
+    <view wx:else class="section">
       <view class="order" wx:for="{{orders}}" wx:key="id">
         <view class="order-head" data-id="{{item.id}}" bindtap="goDetail">
-          <text class="order-no">订单号 {{item.orderNo}}</text>
+          <text class="order-no mono">{{item.orderNo}}</text>
           <text class="order-status" style="color:{{item.statusColor}}">{{item.statusText}}</text>
         </view>
 
         <view class="order-body" data-id="{{item.id}}" bindtap="goDetail">
           <image class="order-cover" src="{{item.coverUrl}}" mode="aspectFill" wx:if="{{item.coverUrl}}" />
-          <view class="order-cover order-cover-ph" wx:else>🍱</view>
-          <view class="order-main">
+          <view class="order-cover order-cover-ph" wx:else>
+            <van-icon name="photo-o" size="40rpx" color="var(--text-3)" />
+          </view>
+          <view class="order-main flex-1">
             <view class="order-name ellipsis">{{item.name}}</view>
             <view class="order-time">{{item.time}}</view>
             <view class="order-delivery" wx:if="{{item.deliverymanName}}">
-              骑手：{{item.deliverymanName}}
+              <van-icon name="logistics" size="22rpx" color="var(--accent-2)" />
+              <text>{{item.deliverymanName}}</text>
             </view>
           </view>
           <view class="order-price">
             <text class="price">¥{{item.actualText}}</text>
-            <text class="order-origin">¥{{item.amountText}}</text>
+            <text class="order-origin mono">¥{{item.amountText}}</text>
           </view>
         </view>
 
         <view class="order-foot">
-          <text class="foot-contact" wx:if="{{item.status === '待发货'}}" catchtap="contact">在线联系</text>
+          <view class="foot-contact" wx:if="{{item.status === '待发货'}}" catchtap="contact">
+            <van-icon name="service-o" size="26rpx" color="var(--accent-2)" />
+            <text>联系商家</text>
+          </view>
           <view class="foot-actions">
-            <view class="btn-plain" wx:if="{{item.canCancel}}" data-id="{{item.id}}" catchtap="cancel">取消订单</view>
-            <view class="btn-plain" wx:if="{{item.canRefund}}" data-id="{{item.id}}" catchtap="refund">申请退款</view>
-            <view class="btn-primary sm" wx:if="{{item.canPay}}" data-id="{{item.id}}" catchtap="pay">去支付</view>
-            <view class="btn-primary sm" wx:if="{{item.canReceive}}" data-id="{{item.id}}" catchtap="receive">确认收货</view>
-            <view class="btn-ghost" wx:if="{{item.canComment}}" data-id="{{item.id}}" catchtap="goComment">去评价</view>
-            <view class="btn-ghost" wx:if="{{item.canRebuy}}" data-id="{{item.id}}" catchtap="rebuy">再来一单</view>
+            <view class="a-btn ghost" wx:if="{{item.canCancel}}" data-id="{{item.id}}" catchtap="cancel">取消</view>
+            <view class="a-btn ghost" wx:if="{{item.canRefund}}" data-id="{{item.id}}" catchtap="refund">退款</view>
+            <view class="a-btn primary" wx:if="{{item.canPay}}" data-id="{{item.id}}" catchtap="pay">去支付</view>
+            <view class="a-btn primary" wx:if="{{item.canReceive}}" data-id="{{item.id}}" catchtap="receive">确认收货</view>
+            <view class="a-btn accent" wx:if="{{item.canComment}}" data-id="{{item.id}}" catchtap="goComment">去评价</view>
+            <view class="a-btn accent" wx:if="{{item.canRebuy}}" data-id="{{item.id}}" catchtap="rebuy">再来一单</view>
           </view>
         </view>
       </view>

@@ -1,75 +1,102 @@
+/* 登录 —— 极简科技风 */
 .login-page {
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(180deg, #ff8a4c 0%, #ff5a1f 42%, #f5f6f8 42%, #f5f6f8 100%);
-  padding: 0 40rpx;
+  padding: 0 48rpx;
+  overflow: hidden;
 }
 
-.brand {
-  padding: 90rpx 0 70rpx;
-  text-align: center;
-  color: #fff;
+/* 背景光晕：科技感来源 */
+.glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.glow-1 {
+  top: -220rpx; left: -140rpx;
+  width: 560rpx; height: 560rpx;
+  background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 65%);
+}
+.glow-2 {
+  top: 200rpx; right: -220rpx;
+  width: 520rpx; height: 520rpx;
+  background: radial-gradient(circle, rgba(59,130,246,0.18), transparent 65%);
 }
 
-.logo {
-  font-size: 96rpx;
-  line-height: 1;
-  margin-bottom: 20rpx;
+/* 品牌区 */
+.brand { position: relative; padding: 140rpx 0 80rpx; }
+.brand-mark {
+  width: 128rpx; height: 128rpx;
+  border-radius: var(--r-xl);
+  background: var(--grad-accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12rpx 40rpx var(--accent-glow);
 }
-
 .brand-name {
-  font-size: 44rpx;
-  font-weight: 700;
+  margin-top: var(--sp-4);
+  font-size: 56rpx; font-weight: 700;
   letter-spacing: 2rpx;
 }
-
 .brand-sub {
-  font-size: 24rpx;
-  opacity: 0.9;
-  margin-top: 12rpx;
+  margin-top: 10rpx;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  letter-spacing: 4rpx;
 }
 
+/* 表单卡片 */
 .form-card {
-  background: #fff;
-  border-radius: 24rpx;
-  padding: 40rpx 36rpx 32rpx;
-  box-shadow: 0 12rpx 40rpx rgba(255, 90, 31, 0.12);
+  position: relative;
+  background: var(--surface);
+  border: 1rpx solid var(--border);
+  border-radius: var(--r-xl);
+  padding: var(--sp-4) var(--sp-3) var(--sp-3);
+}
+.form-title {
+  font-size: var(--fs-lg); font-weight: 600;
+  margin-bottom: var(--sp-3);
 }
 
-.login-btn {
-  margin-top: 44rpx;
+.input-group {
+  display: flex; align-items: center;
+  height: 96rpx;
+  padding: 0 var(--sp-3);
+  background: var(--surface-2);
+  border: 1rpx solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-2);
 }
+.input { flex: 1; margin-left: var(--sp-2); font-size: var(--fs-md); color: var(--text); }
+.input-ph { color: var(--text-3); }
+
+.login-btn { margin-top: var(--sp-3); }
 
 .links {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 32rpx;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: var(--sp-3);
 }
+.link { font-size: var(--fs-sm); color: var(--accent); }
+.link-sep { margin: 0 var(--sp-2); color: var(--text-3); }
 
-.link {
-  font-size: 26rpx;
-  color: #ff5a1f;
+/* 测试账号 */
+.demo { position: relative; margin-top: var(--sp-5); }
+.demo-head {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--sp-3);
 }
-
-.demo {
-  margin-top: 48rpx;
-  background: rgba(255, 255, 255, 0.72);
-  border-radius: 20rpx;
-  padding: 24rpx 28rpx;
+.demo-head text {
+  font-size: var(--fs-xs); color: var(--text-3);
+  letter-spacing: 2rpx; margin: 0 var(--sp-2);
 }
+.demo-line { flex: 1; height: 1rpx; background: var(--border); }
 
-.demo-title {
-  font-size: 24rpx;
-  color: #8c94a3;
-  margin-bottom: 14rpx;
+.demo-list {
+  background: var(--surface);
+  border: 1rpx solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
 }
-
 .demo-item {
-  font-size: 25rpx;
-  color: #4a5163;
-  padding: 12rpx 0;
-  border-bottom: 1rpx dashed #e6e8ee;
+  display: flex; align-items: center;
+  padding: var(--sp-3);
+  border-bottom: 1rpx solid var(--border);
 }
-
-.demo-item:last-child {
-  border-bottom: none;
-}
+.demo-item:last-child { border-bottom: none; }
+.demo-role { flex: 1; margin-left: var(--sp-2); font-size: var(--fs-sm); color: var(--text-2); }
+.demo-acc { font-size: var(--fs-xs); color: var(--text-3); }

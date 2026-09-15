@@ -1,129 +1,52 @@
+/* 订单详情 —— 极简科技风 */
 .status-head {
-  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
-  color: #fff;
-  padding: 44rpx 32rpx 52rpx;
-}
-
-.status-text {
-  font-size: 40rpx;
-  font-weight: 700;
-}
-
-.status-sub {
-  font-size: 25rpx;
-  opacity: 0.92;
-  margin-top: 12rpx;
-}
-
-.card-title {
-  font-size: 29rpx;
-  font-weight: 700;
-  margin-bottom: 15rpx;
-}
-
-.info-row {
-  display: flex;
-  align-items: flex-start;
-  padding: 12rpx 0;
-  font-size: 26rpx;
-}
-
-.info-label {
-  width: 170rpx;
-  color: #8c94a3;
-  flex-shrink: 0;
-}
-
-.info-value {
-  flex: 1;
-  color: #1f2430;
-  word-break: break-all;
-}
-
-.info-value.link {
-  color: #2f80ed;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  padding: 16rpx 0;
-}
-
-.item-img {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 12rpx;
-  background: #f2f3f5;
-  flex-shrink: 0;
-}
-
-.item-img-ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40rpx;
-}
-
-.item-main {
-  flex: 1;
-  margin-left: 18rpx;
+  position: relative;
+  padding: var(--sp-5) var(--sp-3);
+  background: var(--surface);
+  border-bottom: 1rpx solid var(--border);
   overflow: hidden;
 }
-
-.item-name {
-  font-size: 27rpx;
-  font-weight: 600;
+.status-glow {
+  position: absolute; top: -180rpx; right: -100rpx;
+  width: 400rpx; height: 400rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 65%);
 }
+.status-text { position: relative; font-size: var(--fs-2xl); font-weight: 700; }
+.status-sub { position: relative; font-size: var(--fs-sm); color: var(--text-3); margin-top: 12rpx; }
 
-.item-qty {
-  font-size: 23rpx;
-  color: #a3a9b5;
-  margin-top: 8rpx;
-}
+.card-title { display: flex; align-items: center; font-size: var(--fs-md); font-weight: 600; margin-bottom: var(--sp-2); }
+.card-title text { margin-left: 10rpx; }
 
-.item-price {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+.info-row { display: flex; align-items: flex-start; padding: 12rpx 0; font-size: var(--fs-sm); }
+.info-label { width: 170rpx; color: var(--text-3); flex-shrink: 0; }
+.info-value { flex: 1; color: var(--text); word-break: break-all; }
+.info-value.link { color: var(--accent-2); }
 
-.item-price .price {
-  font-size: 29rpx;
-}
+.item { display: flex; align-items: center; padding: var(--sp-2) 0; }
+.item-img { width: 100rpx; height: 100rpx; border-radius: var(--r-sm); background: var(--surface-2); flex-shrink: 0; }
+.item-img-ph { display: flex; align-items: center; justify-content: center; }
+.item-main { margin-left: var(--sp-2); min-width: 0; }
+.item-name { font-size: var(--fs-sm); font-weight: 600; }
+.item-qty { font-size: var(--fs-xs); color: var(--text-3); margin-top: 8rpx; }
+.item-price { display: flex; flex-direction: column; align-items: flex-end; }
+.item-price .price { font-size: var(--fs-sm); }
 
 .fee-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12rpx 0;
-  font-size: 26rpx;
-  color: #4a5163;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12rpx 0; font-size: var(--fs-sm); color: var(--text-2);
 }
+.fee-cut { color: var(--accent); }
+.fee-free { color: var(--success); }
+.fee-row.total { font-size: var(--fs-md); font-weight: 700; color: var(--text); }
+.fee-row.total .price { font-size: var(--fs-xl); }
 
-.fee-cut {
-  color: #ff4d2d;
+.actions { display: flex; justify-content: flex-end; padding: 0 var(--sp-3) var(--sp-5); }
+.a-btn {
+  height: 72rpx; padding: 0 36rpx; margin-left: var(--sp-2);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm); font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
 }
-
-.fee-free {
-  color: #17a34a;
-}
-
-.fee-row.total {
-  font-size: 29rpx;
-  font-weight: 700;
-}
-
-.fee-row.total .price {
-  font-size: 36rpx;
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 24rpx 24rpx 40rpx;
-}
-
-.actions > view {
-  margin-left: 20rpx;
-}
+.a-btn.ghost { border: 1rpx solid var(--border-strong); color: var(--text-2); }
+.a-btn.accent { border: 1rpx solid rgba(34,211,238,0.35); color: var(--accent); }
+.a-btn.primary { background: var(--grad-accent); color: #04121a; }

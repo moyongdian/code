@@ -1,15 +1,5 @@
-.tip {
-  margin: 8rpx 40rpx 0;
-  font-size: 24rpx;
-  color: #8c94a3;
-  line-height: 1.9;
-}
-
-.hl {
-  color: #ff5a1f;
-  font-weight: 700;
-}
-
-.actions {
-  padding: 48rpx 24rpx;
-}
+/* 忘记密码 —— 极简科技风 */
+.tip { padding: 0 var(--sp-3); }
+.tip-line { display: flex; align-items: center; margin-top: var(--sp-2); }
+.tip-line text { margin-left: 8rpx; font-size: var(--fs-xs); color: var(--text-3); }
+.actions { padding: var(--sp-4) var(--sp-3); }

@@ -1,31 +1,42 @@
+<!-- 收货地址：极简科技风 -->
 <view class="page">
-  <view wx:if="{{selectMode}}" class="mode-tip">点击地址即可选择并返回</view>
+  <view wx:if="{{selectMode}}" class="mode-tip">
+    <van-icon name="info-o" size="26rpx" color="var(--accent)" />
+    <text>点击地址即可选择并返回</text>
+  </view>
 
   <view wx:if="{{loading}}" class="loading">加载中…</view>
 
-  <view wx:elif="{{!list.length}}" class="empty">
-    <text class="empty-icon">📍</text>
-    <text>还没有收货地址</text>
-  </view>
+  <van-empty wx:elif="{{!list.length}}" image="search" description="还没有收货地址" />
 
-  <view wx:else>
-    <view class="addr" wx:for="{{list}}" wx:key="id"
-          data-item="{{item}}" bindtap="choose">
-      <view class="addr-main">
+  <view wx:else class="section">
+    <view class="addr" wx:for="{{list}}" wx:key="id" data-item="{{item}}" bindtap="choose">
+      <view class="addr-icon">
+        <van-icon name="location-o" size="40rpx" color="var(--accent)" />
+      </view>
+      <view class="addr-main flex-1">
         <view class="addr-top">
           <text class="addr-name">{{item.user}}</text>
-          <text class="addr-phone" data-phone="{{item.phone}}" catchtap="callPhone">{{item.phone}}</text>
+          <text class="addr-phone mono" data-phone="{{item.phone}}" catchtap="callPhone">{{item.phone}}</text>
         </view>
         <view class="addr-detail">{{item.address}}</view>
       </view>
       <view class="addr-op">
-        <text class="op" data-id="{{item.id}}" catchtap="edit">编辑</text>
-        <text class="op del" data-id="{{item.id}}" catchtap="remove">删除</text>
+        <view class="op" data-id="{{item.id}}" catchtap="edit">
+          <van-icon name="edit" size="32rpx" color="var(--accent-2)" />
+        </view>
+        <view class="op" data-id="{{item.id}}" catchtap="remove">
+          <van-icon name="delete-o" size="32rpx" color="var(--text-3)" />
+        </view>
       </view>
     </view>
   </view>
 
-  <view class="add-bar safe-bottom">
-    <button class="btn-primary" bindtap="add">+ 新增收货地址</button>
+  <view style="height:160rpx"></view>
+  <view class="dock">
+    <view class="btn btn-primary" bindtap="add">
+      <van-icon name="plus" size="32rpx" color="#04121a" />
+      <text class="add-text">新增收货地址</text>
+    </view>
   </view>
 </view>

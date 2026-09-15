@@ -1,29 +1,32 @@
+<!-- 我的收藏：极简科技风 -->
 <view class="page">
   <view wx:if="{{loading}}" class="loading">加载中…</view>
 
-  <view wx:elif="{{!list.length}}" class="empty">
-    <text class="empty-icon">☆</text>
-    <text>还没有收藏的商家</text>
-  </view>
+  <van-empty wx:elif="{{!list.length}}" image="search" description="还没有收藏的商家" />
 
-  <view wx:else>
+  <view wx:else class="section">
     <view class="shop" wx:for="{{list}}" wx:key="bid" data-bid="{{item.bid}}" bindtap="goBusiness">
       <image class="shop-logo" src="{{item.logoUrl}}" mode="aspectFill" wx:if="{{item.logoUrl}}" />
-      <view class="shop-logo shop-logo-ph" wx:else>{{item.nameInitial}}</view>
+      <view class="shop-logo shop-logo-ph" wx:else>
+        <van-icon name="shop-o" size="44rpx" color="var(--accent)" />
+      </view>
 
-      <view class="shop-main">
+      <view class="shop-main flex-1">
         <view class="shop-name ellipsis">{{item.name}}</view>
         <view class="shop-meta">
-          <text class="shop-score">★ {{item.scoreText}}</text>
-          <text class="shop-dot">·</text>
+          <van-icon name="star" size="22rpx" color="var(--warn)" />
+          <text class="score">{{item.scoreText}}</text>
+          <text class="sep">|</text>
           <text>{{item.openText}}</text>
-          <text class="shop-dot">·</text>
-          <text>起送 ¥{{item.minAmountText}}</text>
+          <text class="sep">|</text>
+          <text class="mono">起送 ¥{{item.minAmountText}}</text>
         </view>
         <view class="shop-addr ellipsis">{{item.address || item.introduce}}</view>
       </view>
 
-      <text class="cancel" data-bid="{{item.bid}}" catchtap="cancelCollect">取消</text>
+      <view class="cancel" data-bid="{{item.bid}}" catchtap="cancelCollect">
+        <van-icon name="star" size="36rpx" color="var(--warn)" />
+      </view>
     </view>
   </view>
 </view>

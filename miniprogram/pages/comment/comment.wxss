@@ -1,67 +1,26 @@
-.card-title {
-  font-size: 30rpx;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 24rpx;
-}
-
+/* 发表评价 —— 极简科技风 */
 .order-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10rpx 0;
-  font-size: 26rpx;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10rpx 0; font-size: var(--fs-sm);
 }
+.order-line .muted { color: var(--text-3); }
 
-.order-line .muted {
-  color: #8c94a3;
-}
-
-.stars {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12rpx;
-}
-
-.star {
-  font-size: 72rpx;
-  color: #e6e8ee;
-  margin: 0 14rpx;
-  transition: color 0.15s;
-}
-
-.star.on {
-  color: #ffb020;
-}
-
-.star-tip {
-  text-align: center;
-  font-size: 25rpx;
-  color: #8c94a3;
-  margin-bottom: 24rpx;
+.rate-title { font-size: var(--fs-lg); font-weight: 600; text-align: center; margin-bottom: var(--sp-3); }
+.stars { display: flex; justify-content: center; }
+.star { margin: 0 var(--sp-2); }
+.rate-tip {
+  text-align: center; font-size: var(--fs-sm); color: var(--accent);
+  margin: var(--sp-2) 0 var(--sp-3);
 }
 
 .content {
-  width: 100%;
-  height: 220rpx;
-  background: #f7f8fa;
-  border-radius: 16rpx;
-  padding: 22rpx;
-  font-size: 27rpx;
-  line-height: 1.6;
+  width: 100%; height: 220rpx;
+  background: var(--surface-2);
+  border: 1rpx solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
+  font-size: var(--fs-sm); line-height: 1.6; color: var(--text);
 }
-
-.content-ph {
-  color: #b8bdc8;
-}
-
-.counter {
-  text-align: right;
-  font-size: 22rpx;
-  color: #b8bdc8;
-  margin-top: 10rpx;
-}
-
-.actions {
-  padding: 40rpx 24rpx;
-}
+.content-ph { color: var(--text-3); }
+.counter { text-align: right; font-size: var(--fs-xs); color: var(--text-3); margin-top: 10rpx; }
+.actions { padding: var(--sp-4) var(--sp-3); }

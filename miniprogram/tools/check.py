@@ -226,7 +226,8 @@ def check_wxml_tags():
         s = open(p, encoding='utf-8').read()
         s = re.sub(r'<!--.*?-->', '', s, flags=re.S)
         stack = []
-        for m in re.finditer(r'<(/?)([a-zA-Z][\w-]*)([^>]*?)(/?)>', s):
+        # 注意：属性可能跨行，故用 [\s\S] 而非 [^>]（后者会跨越标签边界）
+        for m in re.finditer(r'<(/?)([a-zA-Z][\w-]*)((?:[^>"\']|"[^"]*"|\'[^\']*\')*?)(/?)>', s, re.S):
             closing, name, _, selfclose = m.groups()
             if name.lower() in void:
                 continue

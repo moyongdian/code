@@ -1,35 +1,44 @@
+<!-- 确认订单：极简科技风 -->
 <view class="page confirm-page">
   <view wx:if="{{loading}}" class="loading">加载中…</view>
 
   <block wx:else>
     <!-- 收货地址 -->
     <view class="card addr-card" bindtap="goAddress">
+      <view class="addr-icon">
+        <van-icon name="location-o" size="40rpx" color="var(--accent)" />
+      </view>
       <block wx:if="{{address}}">
-        <view class="addr-left">
+        <view class="addr-left flex-1">
           <view class="addr-user">
             <text class="addr-name">{{address.user}}</text>
-            <text class="addr-phone">{{address.phone}}</text>
+            <text class="addr-phone mono">{{address.phone}}</text>
           </view>
           <view class="addr-detail">{{address.address}}</view>
         </view>
-        <text class="addr-arrow">›</text>
+        <van-icon name="arrow" size="28rpx" color="var(--text-3)" />
       </block>
       <block wx:else>
-        <view class="addr-empty">📍 请添加收货地址</view>
-        <text class="addr-arrow">›</text>
+        <view class="addr-empty flex-1">请添加收货地址</view>
+        <van-icon name="arrow" size="28rpx" color="var(--text-3)" />
       </block>
     </view>
 
     <!-- 商品清单 -->
     <view class="card">
-      <view class="biz-name">🏪 {{business.name}}</view>
+      <view class="biz-name">
+        <van-icon name="shop-o" size="30rpx" color="var(--accent)" />
+        <text>{{business.name}}</text>
+      </view>
       <view class="divider"></view>
       <view class="item" wx:for="{{items}}" wx:key="id">
         <image class="item-img" src="{{item.imgUrl}}" mode="aspectFill" wx:if="{{item.imgUrl}}" />
-        <view class="item-img item-img-ph" wx:else>🍲</view>
-        <view class="item-main">
+        <view class="item-img item-img-ph" wx:else>
+          <van-icon name="photo-o" size="36rpx" color="var(--text-3)" />
+        </view>
+        <view class="item-main flex-1">
           <view class="item-name ellipsis">{{item.name}}</view>
-          <view class="item-qty">×{{item.num}}</view>
+          <view class="item-qty mono">×{{item.num}}</view>
         </view>
         <view class="item-price">
           <text class="price">¥{{item.realPriceText}}</text>
@@ -40,22 +49,10 @@
 
     <!-- 费用明细 -->
     <view class="card">
-      <view class="fee-row">
-        <text>商品原价</text>
-        <text>¥{{amount}}</text>
-      </view>
-      <view class="fee-row">
-        <text>7 折活动优惠</text>
-        <text class="fee-cut">-¥{{discount}}</text>
-      </view>
-      <view class="fee-row">
-        <text>打包费</text>
-        <text>¥{{packFee}}</text>
-      </view>
-      <view class="fee-row">
-        <text>配送费</text>
-        <text class="fee-free">免费</text>
-      </view>
+      <view class="fee-row"><text>商品原价</text><text class="mono">¥{{amount}}</text></view>
+      <view class="fee-row"><text>7 折活动优惠</text><text class="fee-cut mono">-¥{{discount}}</text></view>
+      <view class="fee-row"><text>打包费</text><text class="mono">¥{{packFee}}</text></view>
+      <view class="fee-row"><text>配送费</text><text class="fee-free">免费</text></view>
       <view class="divider"></view>
       <view class="fee-row total">
         <text>合计</text>
@@ -66,10 +63,13 @@
     <!-- 支付方式 -->
     <view class="card">
       <view class="card-title">支付方式</view>
-      <view class="pay-row" wx:for="{{payTypes}}" wx:key="*this"
-            data-type="{{item}}" bindtap="choosePayType">
-        <text class="pay-name">{{item === '微信' ? '💚 微信支付' : '💙 支付宝'}}</text>
-        <text class="pay-check {{payType === item ? 'on' : ''}}">{{payType === item ? '✓' : ''}}</text>
+      <view class="pay-row" wx:for="{{payTypes}}" wx:key="*this" data-type="{{item}}" bindtap="choosePayType">
+        <van-icon name="{{item === '微信' ? 'wechat' : 'alipay'}}" size="36rpx"
+                  color="{{item === '微信' ? '#34d399' : '#38bdf8'}}" />
+        <text class="pay-name flex-1">{{item}}支付</text>
+        <view class="pay-check {{payType === item ? 'on' : ''}}">
+          <van-icon wx:if="{{payType === item}}" name="success" size="24rpx" color="#04121a" />
+        </view>
       </view>
     </view>
 
@@ -80,16 +80,15 @@
                 maxlength="100" value="{{remark}}" bindinput="onRemarkInput" />
     </view>
 
-    <!-- 提交栏 -->
-    <view class="submit-bar safe-bottom">
+    <view style="height:160rpx"></view>
+    <view class="dock submit-bar">
       <view class="submit-left">
         <text class="submit-label">合计</text>
-        <text class="submit-amount">¥{{actual}}</text>
+        <text class="submit-amount mono">¥{{actual}}</text>
       </view>
       <view class="submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submit">
         {{submitting ? '提交中…' : '提交订单'}}
       </view>
     </view>
-    <view style="height:140rpx"></view>
   </block>
 </view>

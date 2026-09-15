@@ -94,10 +94,12 @@ Page({
     return api.comment.listByBusiness(this.data.bid).then((list) => {
       const comments = (list || []).map((c) => {
         const userName = (c.user && (c.user.name || c.user.username)) || '匿名用户'
+        const star = Math.max(0, Math.min(5, Math.round(util.num(c.star))))
         return {
           id: c.id,
-          star: util.num(c.star),
-          starText: '★★★★★'.slice(0, Math.max(0, Math.round(util.num(c.star)))),
+          star,
+          // 星标布尔数组，避免在 WXML 里做字符串运算
+          starArr: [1, 2, 3, 4, 5].map((i) => i <= star),
           content: c.content || '',
           time: util.friendlyTime(c.time),
           userName,
@@ -225,6 +227,13 @@ Page({
     if (auth.isLogin()) return true
     wx.navigateTo({ url: '/pages/login/login' })
     return false
+  },
+
+  /** 拨打商家电话 */
+  callShop() {
+    const phone = this.data.business && this.data.business.phone
+    if (!phone) return util.toast('商家未提供电话')
+    wx.makePhoneCall({ phoneNumber: String(phone), fail: () => {} })
   },
 
   previewImage(e) {

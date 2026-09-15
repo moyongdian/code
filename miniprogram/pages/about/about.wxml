@@ -1,49 +1,66 @@
+<!-- 关于我们：极简科技风 -->
 <view class="page about">
   <view class="hero">
-    <view class="logo">🍜</view>
+    <view class="hero-glow"></view>
+    <view class="logo">
+      <van-icon name="fire-o" size="72rpx" color="#04121a" />
+    </view>
     <view class="name">校园外卖点餐平台</view>
-    <view class="ver">版本 v{{version}}</view>
+    <view class="ver mono">CAMPUS DELIVERY · v{{version}}</view>
   </view>
 
   <view class="card">
     <view class="card-title">平台简介</view>
     <view class="para">
-      校园外卖点餐平台面向校园师生提供在线点餐与配送服务，覆盖「用户点餐、商家经营、骑手配送、平台管理」四条业务线。
+      面向校园师生提供在线点餐与配送服务，覆盖「用户点餐、商家经营、骑手配送、平台管理」四条业务线。
       用户可在小程序中浏览商家、选购商品、下单支付、跟踪订单状态并发表评价。
     </view>
   </view>
 
   <view class="card">
     <view class="card-title">功能特色</view>
-    <view class="feature">🛒 多商家购物车，按商家分别结算</view>
-    <view class="feature">🏷️ 全场 7 折优惠，价格实时计算</view>
-    <view class="feature">🛵 骑手接单配送，实时查看进度</view>
-    <view class="feature">⭐ 收藏常点商家，一键再来一单</view>
-    <view class="feature">✍️ 订单评价，分享用餐体验</view>
+    <view class="feat">
+      <van-icon name="cart-o" size="32rpx" color="var(--accent)" />
+      <text>多商家购物车，按商家分别结算</text>
+    </view>
+    <view class="feat">
+      <van-icon name="discount" size="32rpx" color="var(--accent)" />
+      <text>全场 7 折优惠，价格实时计算</text>
+    </view>
+    <view class="feat">
+      <van-icon name="logistics" size="32rpx" color="var(--accent)" />
+      <text>骑手接单配送，实时查看进度</text>
+    </view>
+    <view class="feat">
+      <van-icon name="star-o" size="32rpx" color="var(--accent)" />
+      <text>收藏常点商家，一键再来一单</text>
+    </view>
+    <view class="feat">
+      <van-icon name="comment-o" size="32rpx" color="var(--accent)" />
+      <text>订单评价，分享用餐体验</text>
+    </view>
   </view>
 
   <view class="card">
     <view class="card-title">联系我们</view>
     <view class="row-item" bindtap="callService">
-      <text>客服电话</text>
-      <text class="link">0731-88886666</text>
+      <text class="text-2">客服电话</text>
+      <text class="accent mono">0731-88886666</text>
     </view>
     <view class="row-item">
-      <text>服务时间</text>
+      <text class="text-2">服务时间</text>
       <text class="muted">09:00 - 21:00</text>
     </view>
   </view>
 
   <view class="card">
     <view class="card-title">用户协议</view>
-    <view class="para">
-      1. 本平台为校园内部点餐服务，仅供在校师生使用。<br/>
-      2. 请如实填写收货地址与联系电话，以便骑手准确送达。<br/>
-      3. 下单后请及时支付，超时未支付的订单可能被取消。<br/>
-      4. 如遇餐品质量问题，可通过订单评价或客服电话反馈。<br/>
-      5. 请勿利用本平台从事任何违法违规活动。
-    </view>
+    <view class="para para-pre">1. 本平台为校园内部点餐服务，仅供在校师生使用。
+2. 请如实填写收货地址与联系电话，以便骑手准确送达。
+3. 下单后请及时支付，超时未支付的订单可能被取消。
+4. 如遇餐品质量问题，可通过订单评价或客服电话反馈。
+5. 请勿利用本平台从事任何违法违规活动。</view>
   </view>
 
-  <view class="foot">© 2026 校园外卖点餐平台 · 毕业设计作品</view>
+  <view class="foot mono">© 2026 CAMPUS DELIVERY</view>
 </view>

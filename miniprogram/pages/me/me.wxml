@@ -1,43 +1,77 @@
+<!-- 我的：极简科技风 -->
 <view class="page">
-  <!-- 用户头部 -->
+
+  <!-- 用户信息区 -->
   <view class="hero">
+    <view class="hero-glow"></view>
+
     <block wx:if="{{logged}}">
       <view class="hero-user">
         <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
-        <view class="avatar avatar-ph" wx:else>{{avatarText}}</view>
-        <view class="hero-info">
-          <view class="hero-name">{{user.name || user.username}}</view>
-          <view class="hero-sub">账号：{{user.username}} · {{user.role || '用户'}}</view>
+        <view class="avatar avatar-ph" wx:else>
+          <van-icon name="user-o" size="52rpx" color="var(--accent)" />
         </view>
-      </view>
-    </block>
-    <block wx:else>
-      <view class="hero-user" bindtap="goLogin">
-        <view class="avatar avatar-ph">?</view>
-        <view class="hero-info">
-          <view class="hero-name">未登录</view>
-          <view class="hero-sub">点击登录，开始点餐</view>
+        <view class="hero-info flex-1">
+          <view class="hero-name ellipsis">{{user.name || user.username}}</view>
+          <view class="hero-sub mono">@{{user.username}}</view>
+        </view>
+        <view class="hero-role">
+          <van-icon name="medal-o" size="26rpx" color="var(--accent)" />
+          <text>{{user.role || '用户'}}</text>
         </view>
       </view>
     </block>
 
-    <!-- 订单快捷入口 -->
-    <view class="order-bar" wx:if="{{logged}}">
-      <view class="order-entry" data-tab="进行中" bindtap="goOrders">
-        <view class="order-icon">🚴<text class="badge" wx:if="{{orderCounts.delivering > 0}}">{{orderCounts.delivering}}</text></view>
-        <text class="order-label">配送中</text>
+    <block wx:else>
+      <view class="hero-user" bindtap="goLogin">
+        <view class="avatar avatar-ph">
+          <van-icon name="user-o" size="52rpx" color="var(--text-3)" />
+        </view>
+        <view class="hero-info flex-1">
+          <view class="hero-name">未登录</view>
+          <view class="hero-sub">点击登录，开始点餐</view>
+        </view>
+        <van-icon name="arrow" size="28rpx" color="var(--text-3)" />
       </view>
-      <view class="order-entry" data-tab="进行中" bindtap="goOrders">
-        <view class="order-icon">💰<text class="badge" wx:if="{{orderCounts.pending > 0}}">{{orderCounts.pending}}</text></view>
-        <text class="order-label">待支付</text>
+    </block>
+  </view>
+
+  <!-- 订单状态入口 -->
+  <view class="stat-card" wx:if="{{logged}}">
+    <view class="stat-head">
+      <text class="stat-title">我的订单</text>
+      <view class="stat-all" data-tab="全部" bindtap="goOrders">
+        <text>全部订单</text>
+        <van-icon name="arrow" size="22rpx" color="var(--text-3)" />
       </view>
-      <view class="order-entry" data-tab="待评价" bindtap="goOrders">
-        <view class="order-icon">✍️<text class="badge" wx:if="{{orderCounts.toComment > 0}}">{{orderCounts.toComment}}</text></view>
-        <text class="order-label">待评价</text>
+    </view>
+    <view class="stat-row">
+      <view class="stat-item" data-tab="进行中" bindtap="goOrders">
+        <view class="stat-icon">
+          <van-icon name="underway-o" size="40rpx" color="var(--accent)" />
+          <view class="badge" wx:if="{{orderCounts.delivering > 0}}">{{orderCounts.delivering}}</view>
+        </view>
+        <text class="stat-label">配送中</text>
       </view>
-      <view class="order-entry" data-tab="全部" bindtap="goOrders">
-        <view class="order-icon">📋</view>
-        <text class="order-label">全部订单</text>
+      <view class="stat-item" data-tab="进行中" bindtap="goOrders">
+        <view class="stat-icon">
+          <van-icon name="pending-payment" size="40rpx" color="var(--warn)" />
+          <view class="badge" wx:if="{{orderCounts.pending > 0}}">{{orderCounts.pending}}</view>
+        </view>
+        <text class="stat-label">待支付</text>
+      </view>
+      <view class="stat-item" data-tab="待评价" bindtap="goOrders">
+        <view class="stat-icon">
+          <van-icon name="comment-o" size="40rpx" color="var(--accent-2)" />
+          <view class="badge" wx:if="{{orderCounts.toComment > 0}}">{{orderCounts.toComment}}</view>
+        </view>
+        <text class="stat-label">待评价</text>
+      </view>
+      <view class="stat-item" data-tab="退款" bindtap="goOrders">
+        <view class="stat-icon">
+          <van-icon name="refund-o" size="40rpx" color="var(--danger)" />
+        </view>
+        <text class="stat-label">退款</text>
       </view>
     </view>
   </view>
@@ -45,54 +79,57 @@
   <!-- 功能列表 -->
   <view class="menu">
     <view class="menu-item" bindtap="goAddress">
-      <text class="menu-icon">📍</text>
+      <van-icon name="location-o" size="36rpx" color="var(--accent)" />
       <text class="menu-label">收货地址</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
     <view class="menu-item" bindtap="goCollect">
-      <text class="menu-icon">⭐</text>
+      <van-icon name="star-o" size="36rpx" color="var(--warn)" />
       <text class="menu-label">我的收藏</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
     <view class="menu-item" bindtap="goMyComment">
-      <text class="menu-icon">💬</text>
+      <van-icon name="comment-o" size="36rpx" color="var(--accent-2)" />
       <text class="menu-label">我的评价</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
     <view class="menu-item" bindtap="goPerson">
-      <text class="menu-icon">👤</text>
+      <van-icon name="manager-o" size="36rpx" color="var(--text-2)" />
       <text class="menu-label">个人信息</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
     <view class="menu-item" bindtap="goEditPassword">
-      <text class="menu-icon">🔒</text>
+      <van-icon name="lock" size="36rpx" color="var(--text-2)" />
       <text class="menu-label">修改密码</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
   </view>
 
   <view class="menu" wx:if="{{hasDeliveryEntry}}">
     <view class="menu-item" bindtap="goTakeout">
-      <text class="menu-icon">🛵</text>
+      <van-icon name="logistics" size="36rpx" color="var(--success)" />
       <text class="menu-label">外卖接单</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
   </view>
 
   <view class="menu">
     <view class="menu-item" bindtap="goAbout">
-      <text class="menu-icon">ℹ️</text>
+      <van-icon name="info-o" size="36rpx" color="var(--text-2)" />
       <text class="menu-label">关于我们</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
     <view class="menu-item" bindtap="contactService">
-      <text class="menu-icon">📞</text>
+      <van-icon name="service-o" size="36rpx" color="var(--text-2)" />
       <text class="menu-label">联系客服</text>
-      <text class="menu-arrow">›</text>
+      <van-icon name="arrow" size="26rpx" color="var(--text-3)" />
     </view>
   </view>
 
-  <view class="logout" wx:if="{{logged}}" bindtap="logout">退出登录</view>
+  <view class="logout" wx:if="{{logged}}" bindtap="logout">
+    <van-icon name="close" size="30rpx" color="var(--danger)" />
+    <text>退出登录</text>
+  </view>
 
-  <view class="version">校园外卖点餐平台 · 小程序 v1.0.0</view>
+  <view class="version mono">CAMPUS DELIVERY · v1.0.0</view>
 </view>

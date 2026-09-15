@@ -1,68 +1,45 @@
-.about {
-  padding-bottom: 60rpx;
-}
+/* 关于我们 —— 极简科技风 */
+.about { padding-bottom: 60rpx; }
 
 .hero {
-  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
-  color: #fff;
+  position: relative;
   text-align: center;
-  padding: 70rpx 0 60rpx;
+  padding: 90rpx 0 70rpx;
+  overflow: hidden;
 }
-
+.hero-glow {
+  position: absolute; top: -180rpx; left: 50%;
+  transform: translateX(-50%);
+  width: 520rpx; height: 520rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 65%);
+}
 .logo {
-  font-size: 100rpx;
-  line-height: 1;
+  position: relative;
+  width: 132rpx; height: 132rpx; margin: 0 auto;
+  border-radius: var(--r-xl);
+  background: var(--grad-accent);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12rpx 40rpx var(--accent-glow);
 }
+.name { position: relative; margin-top: var(--sp-3); font-size: var(--fs-xl); font-weight: 700; }
+.ver { position: relative; margin-top: 10rpx; font-size: var(--fs-xs); color: var(--text-3); letter-spacing: 3rpx; }
 
-.name {
-  font-size: 38rpx;
-  font-weight: 700;
-  margin-top: 18rpx;
-}
+.card-title { font-size: var(--fs-md); font-weight: 600; margin-bottom: var(--sp-2); }
+.para { font-size: var(--fs-sm); color: var(--text-2); line-height: 1.9; }
+/* 保留模板中的换行（小程序 WXML 不支持在插值里写 \n） */
+.para-pre { white-space: pre-line; }
 
-.ver {
-  font-size: 24rpx;
-  opacity: 0.9;
-  margin-top: 10rpx;
-}
-
-.card-title {
-  font-size: 29rpx;
-  font-weight: 700;
-  margin-bottom: 16rpx;
-}
-
-.para {
-  font-size: 26rpx;
-  color: #4a5163;
-  line-height: 1.85;
-}
-
-.feature {
-  font-size: 26rpx;
-  color: #4a5163;
-  padding: 12rpx 0;
-}
+.feat { display: flex; align-items: center; padding: 14rpx 0; }
+.feat text { margin-left: var(--sp-2); font-size: var(--fs-sm); color: var(--text-2); }
 
 .row-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16rpx 0;
-  font-size: 26rpx;
-}
-
-.link {
-  color: #2f80ed;
-}
-
-.muted {
-  color: #8c94a3;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16rpx 0; font-size: var(--fs-sm);
 }
 
 .foot {
-  text-align: center;
-  font-size: 22rpx;
-  color: #b8bdc8;
-  padding: 30rpx 0;
+  text-align: center; font-size: 18rpx;
+  color: var(--text-3); letter-spacing: 3rpx;
+  padding: var(--sp-4) 0;
+  opacity: 0.7;
 }

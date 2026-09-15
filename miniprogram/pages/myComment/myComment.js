@@ -32,7 +32,8 @@ Page({
             content: c.content || '',
             time: util.friendlyTime(c.time),
             star,
-            starText: '★★★★★'.slice(0, star) + '☆☆☆☆☆'.slice(0, 5 - star),
+            // 星标布尔数组，避免在 WXML 中做字符串运算
+            starArr: [1, 2, 3, 4, 5].map((i) => i <= star),
             businessName: (c.business && c.business.name) || (c.businessName || ('商家 #' + c.bid))
           }
         })

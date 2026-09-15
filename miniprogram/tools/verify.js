@@ -397,8 +397,11 @@ async function main() {
   await sleep(1400)
   check('我的评价页加载', (myc.data.list || []).length >= 1, '条数=' + (myc.data.list || []).length)
   const mc0 = (myc.data.list || [])[0] || {}
-  check('评价项含商家名与星级', !!mc0.businessName && !!mc0.starText,
-    `${mc0.businessName} ${mc0.starText}`)
+  // 星级改为布尔数组（starArr），避免在 WXML 中做字符串切片
+  check('评价项含商家名与星级', !!mc0.businessName && Array.isArray(mc0.starArr) && mc0.starArr.length === 5,
+    `${mc0.businessName} 星标=${JSON.stringify(mc0.starArr)}`)
+  check('星标数量与评分一致', (mc0.starArr || []).filter(Boolean).length === mc0.star,
+    `star=${mc0.star} 实亮=${(mc0.starArr || []).filter(Boolean).length}`)
 
   // ---------- 11. 个人中心 / 个人信息 ----------
   section('11. 个人中心与个人信息 pages/me + person')

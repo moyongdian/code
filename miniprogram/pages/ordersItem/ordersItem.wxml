@@ -1,9 +1,11 @@
+<!-- 订单详情：极简科技风 -->
 <view class="page">
   <view wx:if="{{loading}}" class="loading">加载中…</view>
 
   <block wx:elif="{{order}}">
     <!-- 状态头 -->
     <view class="status-head">
+      <view class="status-glow"></view>
       <view class="status-text">{{order.statusText}}</view>
       <view class="status-sub" wx:if="{{order.status === '待支付'}}">请尽快完成支付</view>
       <view class="status-sub" wx:elif="{{order.status === '待发货'}}">商家正在准备你的餐品</view>
@@ -14,14 +16,14 @@
 
     <!-- 收货信息 -->
     <view class="card">
-      <view class="card-title">📍 收货信息</view>
-      <view class="info-row">
-        <text class="info-label">收货人</text>
-        <text class="info-value">{{order.user}}</text>
+      <view class="card-title">
+        <van-icon name="location-o" size="30rpx" color="var(--accent)" />
+        <text>收货信息</text>
       </view>
+      <view class="info-row"><text class="info-label">收货人</text><text class="info-value">{{order.user}}</text></view>
       <view class="info-row" bindtap="callPhone">
         <text class="info-label">联系电话</text>
-        <text class="info-value link">{{order.phone}}</text>
+        <text class="info-value link mono">{{order.phone}}</text>
       </view>
       <view class="info-row">
         <text class="info-label">收货地址</text>
@@ -35,14 +37,19 @@
 
     <!-- 商品明细 -->
     <view class="card">
-      <view class="card-title">🏪 {{order.businessName || '商品明细'}}</view>
+      <view class="card-title">
+        <van-icon name="shop-o" size="30rpx" color="var(--accent)" />
+        <text>{{order.businessName || '商品明细'}}</text>
+      </view>
       <view class="divider"></view>
       <view class="item" wx:for="{{items}}" wx:key="id">
         <image class="item-img" src="{{item.imgUrl}}" mode="aspectFill" wx:if="{{item.imgUrl}}" />
-        <view class="item-img item-img-ph" wx:else>🍲</view>
-        <view class="item-main">
+        <view class="item-img item-img-ph" wx:else>
+          <van-icon name="photo-o" size="36rpx" color="var(--text-3)" />
+        </view>
+        <view class="item-main flex-1">
           <view class="item-name ellipsis">{{item.name}}</view>
-          <view class="item-qty">×{{item.num}}</view>
+          <view class="item-qty mono">×{{item.num}}</view>
         </view>
         <view class="item-price">
           <text class="price">¥{{item.realPriceText}}</text>
@@ -51,59 +58,38 @@
       </view>
 
       <view class="divider"></view>
-      <view class="fee-row">
-        <text>商品原价</text>
-        <text>¥{{order.amountText}}</text>
-      </view>
-      <view class="fee-row">
-        <text>7 折优惠</text>
-        <text class="fee-cut">-¥{{order.discountText}}</text>
-      </view>
-      <view class="fee-row">
-        <text>配送费</text>
-        <text class="fee-free">免费</text>
-      </view>
-      <view class="fee-row total">
-        <text>实付款</text>
-        <text class="price">¥{{order.actualText}}</text>
-      </view>
+      <view class="fee-row"><text>商品原价</text><text class="mono">¥{{order.amountText}}</text></view>
+      <view class="fee-row"><text>7 折优惠</text><text class="fee-cut mono">-¥{{order.discountText}}</text></view>
+      <view class="fee-row"><text>配送费</text><text class="fee-free">免费</text></view>
+      <view class="fee-row total"><text>实付款</text><text class="price">¥{{order.actualText}}</text></view>
     </view>
 
     <!-- 订单信息 -->
     <view class="card">
-      <view class="card-title">📄 订单信息</view>
-      <view class="info-row">
+      <view class="card-title">
+        <van-icon name="description" size="30rpx" color="var(--accent)" />
+        <text>订单信息</text>
+      </view>
+      <view class="info-row" bindtap="copyOrderNo">
         <text class="info-label">订单编号</text>
-        <text class="info-value" bindtap="copyOrderNo">{{order.orderNo}} 复制</text>
+        <text class="info-value mono">{{order.orderNo}}</text>
+        <van-icon name="records" size="26rpx" color="var(--text-3)" />
       </view>
-      <view class="info-row">
-        <text class="info-label">下单时间</text>
-        <text class="info-value">{{order.timeText}}</text>
-      </view>
-      <view class="info-row">
-        <text class="info-label">支付时间</text>
-        <text class="info-value">{{order.payTimeText}}</text>
-      </view>
-      <view class="info-row">
-        <text class="info-label">支付方式</text>
-        <text class="info-value">{{order.payType || '—'}}</text>
-      </view>
+      <view class="info-row"><text class="info-label">下单时间</text><text class="info-value">{{order.timeText}}</text></view>
+      <view class="info-row"><text class="info-label">支付时间</text><text class="info-value">{{order.payTimeText}}</text></view>
+      <view class="info-row"><text class="info-label">支付方式</text><text class="info-value">{{order.payType || '—'}}</text></view>
       <view class="info-row" wx:if="{{order.deliverymanName}}">
         <text class="info-label">配送骑手</text>
         <text class="info-value">{{order.deliverymanName}} {{order.deliverymanPhone}}</text>
       </view>
-      <view class="info-row">
-        <text class="info-label">发票说明</text>
-        <text class="info-value">如需发票请联系商家</text>
-      </view>
+      <view class="info-row"><text class="info-label">发票说明</text><text class="info-value">如需发票请联系商家</text></view>
     </view>
 
-    <!-- 操作 -->
     <view class="actions">
-      <view class="btn-plain" wx:if="{{order.canCancel}}" bindtap="cancel">取消订单</view>
-      <view class="btn-primary" wx:if="{{order.canPay}}" bindtap="pay">去支付</view>
-      <view class="btn-primary" wx:if="{{order.canReceive}}" bindtap="receive">确认收货</view>
-      <view class="btn-ghost" wx:if="{{order.canComment}}" bindtap="goComment">去评价</view>
+      <view class="a-btn ghost" wx:if="{{order.canCancel}}" bindtap="cancel">取消订单</view>
+      <view class="a-btn primary" wx:if="{{order.canPay}}" bindtap="pay">去支付</view>
+      <view class="a-btn primary" wx:if="{{order.canReceive}}" bindtap="receive">确认收货</view>
+      <view class="a-btn accent" wx:if="{{order.canComment}}" bindtap="goComment">去评价</view>
     </view>
   </block>
 </view>

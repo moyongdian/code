@@ -180,14 +180,54 @@ function renderTable(render, row) {
   return result
 }
 
+/* ---------- 造一条临时订单（仅当订单为空时使用），返回订单 id ---------- */
+async function seedOrder(adminToken) {
+  const asUser = await login('test', '123456')
+  if (!asUser) return null
+  const post = (p, body, tk) => fetch(BASE + p, {
+    method: 'POST',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, tk ? { token: tk } : {}),
+    body: JSON.stringify(body)
+  }).then((r) => r.json())
+
+  await post('/address/add', {
+    address: '渲染验证临时地址', user: '验证', phone: '13900000000', userId: 2
+  }, asUser)
+
+  const list = (await api('/address/selectAll/2', asUser)).data || []
+  const myAddr = list.find((a) => a.address === '渲染验证临时地址')
+  if (!myAddr) return null
+
+  await post('/cart/add', { pid: 1, bid: 1, num: 1 }, asUser)
+  await post('/orders/addOrder', {
+    bid: 1, user: '验证', addressId: myAddr.id, phone: '13900000000',
+    comment: '渲染验证临时订单', payType: '微信'
+  }, asUser)
+
+  const orders = (await api('/orders/selectAll', adminToken)).data || []
+  const mine = orders.find((o) => /渲染验证临时订单/.test(o.comment || ''))
+  // 清理临时地址（订单保留到验证结束再删，因为验证需要它）
+  await fetch(BASE + '/address/delete/' + myAddr.id, { method: 'DELETE', headers: { token: adminToken } })
+  return mine ? mine.id : null
+}
+
 /* ---------- 主流程 ---------- */
 async function main() {
   const token = await login('admin', 'admin123')
   if (!token) throw new Error('登录失败，请确认后端已启动')
 
   section('1. 后端返回的真实数据类型')
-  const orders = (await api('/orders/selectAll', token)).data || []
+  let orders = (await api('/orders/selectAll', token)).data || []
   const comments = (await api('/comment/selectByPage?pageNum=1&pageSize=10', token)).data.records || []
+
+  // 订单为空时自建一条临时数据（否则无法验证「商家」列）
+  let tempOrderId = null
+  if (!orders.length) {
+    console.log('   （订单为空，创建临时订单用于验证）')
+    tempOrderId = await seedOrder(token)
+    orders = (await api('/orders/selectAll', token)).data || []
+  }
+
   check('存在订单数据用于验证', orders.length > 0, '订单数=' + orders.length)
   check('存在评论数据用于验证', comments.length > 0, '评论数=' + comments.length)
   const orderRow = orders[0] || {}
@@ -237,6 +277,12 @@ async function main() {
     const cell = (cells[label] || {}).cell
     check(`${path.basename(file)} 的「${label}」列正常`, typeof cell === 'string' && !/\[object Object\]/.test(cell),
       `"${cell}"`)
+  }
+
+  // 清理临时订单
+  if (tempOrderId) {
+    await fetch(BASE + '/orders/delete/' + tempOrderId, { method: 'DELETE', headers: { token } })
+    console.log(`  已清理临时订单 id=${tempOrderId}`)
   }
 
   section('验证结果')

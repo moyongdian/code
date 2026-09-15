@@ -1,41 +1,43 @@
+<!-- 注册：极简科技风 -->
 <view class="page">
   <view class="card">
     <view class="field">
       <text class="field-label">用户名 <text class="req">*</text></text>
-      <input class="field-input" placeholder="不超过 10 个字符" placeholder-class="field-input-placeholder"
+      <input class="field-input" placeholder="不超过 10 个字符" placeholder-class="field-ph"
              value="{{username}}" data-field="username" bindinput="onInput" />
     </view>
     <view class="field">
       <text class="field-label">密码 <text class="req">*</text></text>
-      <input class="field-input" password placeholder="6-20 位" placeholder-class="field-input-placeholder"
+      <input class="field-input" password placeholder="6-20 位" placeholder-class="field-ph"
              value="{{password}}" data-field="password" bindinput="onInput" />
     </view>
     <view class="field">
       <text class="field-label">确认密码 <text class="req">*</text></text>
-      <input class="field-input" password placeholder="再次输入密码" placeholder-class="field-input-placeholder"
+      <input class="field-input" password placeholder="再次输入密码" placeholder-class="field-ph"
              value="{{confirm}}" data-field="confirm" bindinput="onInput" />
     </view>
     <view class="field">
       <text class="field-label">姓名</text>
-      <input class="field-input" placeholder="选填" placeholder-class="field-input-placeholder"
+      <input class="field-input" placeholder="选填" placeholder-class="field-ph"
              value="{{name}}" data-field="name" bindinput="onInput" />
     </view>
     <view class="field">
       <text class="field-label">手机号</text>
-      <input class="field-input" type="number" maxlength="11" placeholder="选填，用于找回密码"
-             placeholder-class="field-input-placeholder"
+      <input class="field-input mono" type="number" maxlength="11" placeholder="选填，用于找回密码"
+             placeholder-class="field-ph"
              value="{{phone}}" data-field="phone" bindinput="onInput" />
     </view>
   </view>
 
-  <view class="tip">提示：注册后角色固定为「用户」。忘记密码功能需要用户名与手机号同时匹配。</view>
+  <view class="tip">
+    <view class="tip-line"><van-icon name="info-o" size="26rpx" color="var(--accent)" /><text>注册后角色固定为「用户」</text></view>
+    <view class="tip-line"><van-icon name="shield-o" size="26rpx" color="var(--accent)" /><text>找回密码需用户名与手机号同时匹配</text></view>
+  </view>
 
   <view class="actions">
-    <button class="btn-primary" loading="{{loading}}" disabled="{{loading}}" bindtap="onSubmit">
+    <view class="btn btn-primary {{loading ? 'disabled' : ''}}" bindtap="onSubmit">
       {{loading ? '提交中…' : '注 册'}}
-    </button>
-    <view class="link-row">
-      <text class="link" bindtap="goLogin">已有账号？返回登录</text>
     </view>
+    <view class="link-row"><text class="link" bindtap="goLogin">已有账号？返回登录</text></view>
   </view>
 </view>

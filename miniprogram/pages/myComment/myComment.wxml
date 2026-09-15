@@ -1,23 +1,29 @@
+<!-- 我的评价：极简科技风 -->
 <view class="page">
   <view wx:if="{{loading}}" class="loading">加载中…</view>
 
-  <view wx:elif="{{!list.length}}" class="empty">
-    <text class="empty-icon">💬</text>
-    <text>你还没有发表过评价</text>
-  </view>
+  <van-empty wx:elif="{{!list.length}}" image="search" description="你还没有发表过评价" />
 
-  <view wx:else>
+  <view wx:else class="section">
     <view class="comment" wx:for="{{list}}" wx:key="id">
       <view class="comment-head">
-        <text class="comment-shop ellipsis" data-bid="{{item.bid}}" bindtap="goBusiness">
-          🏪 {{item.businessName}} ›
-        </text>
+        <view class="comment-shop flex-1" data-bid="{{item.bid}}" bindtap="goBusiness">
+          <van-icon name="shop-o" size="26rpx" color="var(--accent)" />
+          <text class="ellipsis">{{item.businessName}}</text>
+          <van-icon name="arrow" size="20rpx" color="var(--text-3)" />
+        </view>
         <text class="comment-time">{{item.time}}</text>
       </view>
-      <view class="comment-star">{{item.starText}}</view>
+      <view class="comment-stars">
+        <van-icon wx:for="{{item.starArr}}" wx:key="*this" name="star" size="24rpx"
+                  color="{{item2 ? '#fbbf24' : '#2c3850'}}" wx:for-item="item2" />
+      </view>
       <view class="comment-content">{{item.content}}</view>
       <view class="comment-foot">
-        <text class="comment-del" data-id="{{item.id}}" bindtap="remove">删除评价</text>
+        <view class="comment-del" data-id="{{item.id}}" bindtap="remove">
+          <van-icon name="delete-o" size="28rpx" color="var(--text-3)" />
+          <text>删除</text>
+        </view>
       </view>
     </view>
   </view>

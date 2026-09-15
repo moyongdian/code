@@ -7,7 +7,9 @@ Page({
     order: null,
     star: 5,
     stars: [1, 2, 3, 4, 5],
+    starText: '非常满意',
     content: '',
+    counter: '0/200',
     submitting: false,
     loading: true
   },
@@ -26,11 +28,15 @@ Page({
   },
 
   setStar(e) {
-    this.setData({ star: util.num(e.currentTarget.dataset.star, 5) })
+    const star = util.num(e.currentTarget.dataset.star, 5)
+    // 文案在 JS 中计算，避免 WXML 里做嵌套三元
+    const labels = { 5: '非常满意', 4: '满意', 3: '一般', 2: '不太满意', 1: '很不满意' }
+    this.setData({ star, starText: labels[star] || '请评分' })
   },
 
   onContentInput(e) {
-    this.setData({ content: e.detail.value })
+    const content = e.detail.value
+    this.setData({ content, counter: content.length + '/200' })
   },
 
   submit() {
