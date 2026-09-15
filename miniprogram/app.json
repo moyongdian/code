@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/reset/reset",
+    "pages/detail/detail",
+    "pages/product/product",
+    "pages/cart/cart",
+    "pages/confirm/confirm",
+    "pages/orders/orders",
+    "pages/ordersItem/ordersItem",
+    "pages/comment/comment",
+    "pages/address/address",
+    "pages/addressEdit/addressEdit",
+    "pages/collect/collect",
+    "pages/myComment/myComment",
+    "pages/me/me",
+    "pages/person/person",
+    "pages/editPassword/editPassword",
+    "pages/about/about"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ff6b35",
+    "navigationBarTitleText": "校园外卖",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f6f8"
+  },
+  "tabBar": {
+    "color": "#8c94a3",
+    "selectedColor": "#ff6b35",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "点餐",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单",
+        "iconPath": "images/tab-orders.png",
+        "selectedIconPath": "images/tab-orders-active.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "images/tab-me.png",
+        "selectedIconPath": "images/tab-me-active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 15000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,65 @@
+.mode-tip {
+  background: #fff8f3;
+  color: #a8551f;
+  font-size: 24rpx;
+  padding: 16rpx 32rpx;
+}
+
+.addr {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin: 20rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 26rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(24, 33, 56, 0.04);
+}
+
+.addr-main {
+  flex: 1;
+  overflow: hidden;
+}
+
+.addr-top {
+  display: flex;
+  align-items: baseline;
+}
+
+.addr-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-right: 20rpx;
+}
+
+.addr-phone {
+  font-size: 26rpx;
+  color: #2f80ed;
+}
+
+.addr-detail {
+  font-size: 25rpx;
+  color: #6b7280;
+  margin-top: 12rpx;
+  line-height: 1.5;
+}
+
+.addr-op {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 16rpx;
+}
+
+.op {
+  font-size: 25rpx;
+  color: #ff5a1f;
+  padding: 6rpx 0;
+}
+
+.op.del {
+  color: #a3a9b5;
+}
+
+.add-bar {
+  padding: 40rpx 24rpx;
+}

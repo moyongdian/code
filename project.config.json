@@ -1,0 +1,18 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "projectname": "campus-takeout-miniprogram",
+  "description": "校园外卖点餐平台 — 微信小程序（用户端）",
+  "appid": "wx0000000000000000",
+  "compileType": "miniprogram",
+  "libVersion": "3.5.5",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "nodeModules": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "condition": {}
+}

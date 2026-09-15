@@ -1,0 +1,155 @@
+<view class="page detail-page">
+
+  <!-- 商家头部 -->
+  <view class="head" wx:if="{{business}}">
+    <view class="head-top">
+      <image class="head-logo" src="{{business.logoUrl}}" mode="aspectFill" wx:if="{{business.logoUrl}}" />
+      <view class="head-logo head-logo-ph" wx:else>{{business.name[0]}}</view>
+
+      <view class="head-info">
+        <view class="head-name ellipsis">{{business.name}}</view>
+        <view class="head-meta">
+          <text class="head-score">★ {{business.scoreText}}</text>
+          <text class="head-dot">·</text>
+          <text>月售 {{business.sales}}</text>
+          <text class="head-dot">·</text>
+          <text>{{business.openText}}</text>
+        </view>
+        <view class="head-tags">
+          <text class="tag">起送 ¥{{business.minAmountText}}</text>
+          <text class="tag tag-gray">{{business.openTime}}-{{business.closeTime}}</text>
+        </view>
+      </view>
+
+      <view class="collect" bindtap="toggleCollect">
+        <text class="collect-icon {{isCollect ? 'on' : ''}}">{{isCollect ? '★' : '☆'}}</text>
+        <text class="collect-text">{{isCollect ? '已收藏' : '收藏'}}</text>
+      </view>
+    </view>
+
+    <view class="head-addr ellipsis" bindtap="noop">
+      <text class="head-addr-icon">📍</text>{{business.address}}
+      <text class="head-phone" catchtap="noop">{{business.phone}}</text>
+    </view>
+    <view class="head-intro ellipsis-2" wx:if="{{business.introduce}}">{{business.introduce}}</view>
+  </view>
+
+  <!-- 选项卡 -->
+  <view class="tabs">
+    <view class="tab {{tab === 'goods' ? 'active' : ''}}" data-tab="goods" bindtap="switchTab">全部商品</view>
+    <view class="tab {{tab === 'comments' ? 'active' : ''}}" data-tab="comments" bindtap="switchTab">
+      评价 ({{comments.length}})
+    </view>
+  </view>
+
+  <!-- 商品区 -->
+  <view class="goods" wx:if="{{tab === 'goods'}}">
+    <!-- 左侧分类 -->
+    <scroll-view class="cate-nav" scroll-y>
+      <view wx:for="{{categories}}" wx:key="id"
+            class="cate-item {{activeCid === item.id ? 'active' : ''}}"
+            data-cid="{{item.id}}" bindtap="switchCategory">
+        {{item.name}}
+      </view>
+      <view wx:if="{{!categories.length}}" class="cate-empty">暂无分类</view>
+    </scroll-view>
+
+    <!-- 右侧商品 -->
+    <scroll-view class="prod-list" scroll-y>
+      <view wx:if="{{loading}}" class="loading">加载中…</view>
+      <view wx:elif="{{!products.length}}" class="empty">
+        <text class="empty-icon">🍽️</text>
+        <text>该分类暂无商品</text>
+      </view>
+
+      <view class="prod" wx:for="{{products}}" wx:key="id">
+        <image class="prod-img" src="{{item.imgUrl}}" mode="aspectFill"
+               data-url="{{item.imgUrl}}" bindtap="previewImage" wx:if="{{item.imgUrl}}" />
+        <view class="prod-img prod-img-ph" wx:else>🍲</view>
+
+        <view class="prod-main">
+          <view class="prod-name ellipsis">{{item.name}}</view>
+          <view class="prod-desc ellipsis">{{item.description}}</view>
+          <view class="prod-sale">已售 {{item.sum}}</view>
+          <view class="prod-bottom">
+            <view class="prod-price">
+              <text class="price">¥{{item.realPriceText}}</text>
+              <text class="price-origin" wx:if="{{item.hasDiscount}}">¥{{item.priceText}}</text>
+              <text class="tag" wx:if="{{item.hasDiscount}}">7折</text>
+            </view>
+            <view class="prod-op">
+              <text class="prod-num" wx:if="{{item.num > 0}}">×{{item.num}}</text>
+              <view class="add-btn" data-item="{{item}}" catchtap="addToCart">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="height:140rpx"></view>
+    </scroll-view>
+  </view>
+
+  <!-- 评价区 -->
+  <view class="comments" wx:else>
+    <view wx:if="{{!comments.length}}" class="empty">
+      <text class="empty-icon">💬</text>
+      <text>暂无评价</text>
+    </view>
+    <view class="comment" wx:for="{{comments}}" wx:key="id">
+      <view class="comment-top">
+        <view class="comment-avatar">{{item.userName[0]}}</view>
+        <view class="comment-user">
+          <view class="comment-name">{{item.userName}}</view>
+          <view class="comment-star">{{item.starText}}</view>
+        </view>
+        <text class="comment-time">{{item.time}}</text>
+      </view>
+      <view class="comment-content">{{item.content}}</view>
+    </view>
+  </view>
+
+  <!-- 底部购物车栏 -->
+  <view class="cart-bar">
+    <view class="cart-left" bindtap="toggleCartPanel">
+      <view class="cart-icon">
+        🛒
+        <view class="cart-badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+      </view>
+      <view class="cart-amount">
+        <text class="cart-total" wx:if="{{cartCount > 0}}">¥{{cartTotal}}</text>
+        <text class="cart-empty" wx:else>购物车是空的</text>
+      </view>
+    </view>
+    <view class="cart-submit {{cartCount > 0 ? '' : 'disabled'}}" bindtap="goConfirm">立即下单</view>
+  </view>
+
+  <!-- 购物车弹层 -->
+  <view class="cart-panel-mask" wx:if="{{showCart}}" bindtap="closeCartPanel"></view>
+  <view class="cart-panel" wx:if="{{showCart}}">
+    <view class="cart-panel-head">
+      <text class="cart-panel-title">已选商品</text>
+      <text class="cart-panel-clear" bindtap="clearCart">🗑 清空</text>
+    </view>
+    <scroll-view class="cart-panel-list" scroll-y>
+      <view class="cart-row" wx:for="{{cartList}}" wx:key="id">
+        <image class="cart-row-img" src="{{item.imgUrl}}" mode="aspectFill" wx:if="{{item.imgUrl}}" />
+        <view class="cart-row-img cart-row-img-ph" wx:else>🍲</view>
+        <view class="cart-row-main">
+          <view class="cart-row-name ellipsis">{{item.name}}</view>
+          <view class="cart-row-price">¥{{item.realPriceText}}</view>
+        </view>
+        <view class="stepper">
+          <view class="step-btn" data-id="{{item.id}}" data-pid="{{item.pid}}" data-delta="-1" bindtap="changeNum">−</view>
+          <view class="step-num">{{item.num}}</view>
+          <view class="step-btn" data-id="{{item.id}}" data-pid="{{item.pid}}" data-delta="1" bindtap="changeNum">+</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="cart-panel-foot safe-bottom">
+      <text class="cart-panel-total">合计 <text class="price">¥{{cartTotal}}</text></text>
+      <view class="cart-panel-btn" bindtap="goConfirm">去结算</view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view style="height:120rpx"></view>
+</view>

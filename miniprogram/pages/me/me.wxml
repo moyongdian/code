@@ -1,0 +1,98 @@
+<view class="page">
+  <!-- 用户头部 -->
+  <view class="hero">
+    <block wx:if="{{logged}}">
+      <view class="hero-user">
+        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
+        <view class="avatar avatar-ph" wx:else>{{(user.name || user.username || 'U')[0]}}</view>
+        <view class="hero-info">
+          <view class="hero-name">{{user.name || user.username}}</view>
+          <view class="hero-sub">账号：{{user.username}} · {{user.role || '用户'}}</view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="hero-user" bindtap="goLogin">
+        <view class="avatar avatar-ph">?</view>
+        <view class="hero-info">
+          <view class="hero-name">未登录</view>
+          <view class="hero-sub">点击登录，开始点餐</view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 订单快捷入口 -->
+    <view class="order-bar" wx:if="{{logged}}">
+      <view class="order-entry" data-tab="进行中" bindtap="goOrders">
+        <view class="order-icon">🚴<text class="badge" wx:if="{{orderCounts.delivering > 0}}">{{orderCounts.delivering}}</text></view>
+        <text class="order-label">配送中</text>
+      </view>
+      <view class="order-entry" data-tab="进行中" bindtap="goOrders">
+        <view class="order-icon">💰<text class="badge" wx:if="{{orderCounts.pending > 0}}">{{orderCounts.pending}}</text></view>
+        <text class="order-label">待支付</text>
+      </view>
+      <view class="order-entry" data-tab="待评价" bindtap="goOrders">
+        <view class="order-icon">✍️<text class="badge" wx:if="{{orderCounts.toComment > 0}}">{{orderCounts.toComment}}</text></view>
+        <text class="order-label">待评价</text>
+      </view>
+      <view class="order-entry" data-tab="全部" bindtap="goOrders">
+        <view class="order-icon">📋</view>
+        <text class="order-label">全部订单</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu">
+    <view class="menu-item" bindtap="goAddress">
+      <text class="menu-icon">📍</text>
+      <text class="menu-label">收货地址</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goCollect">
+      <text class="menu-icon">⭐</text>
+      <text class="menu-label">我的收藏</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goMyComment">
+      <text class="menu-icon">💬</text>
+      <text class="menu-label">我的评价</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goPerson">
+      <text class="menu-icon">👤</text>
+      <text class="menu-label">个人信息</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goEditPassword">
+      <text class="menu-icon">🔒</text>
+      <text class="menu-label">修改密码</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="menu" wx:if="{{hasDeliveryEntry}}">
+    <view class="menu-item" bindtap="goTakeout">
+      <text class="menu-icon">🛵</text>
+      <text class="menu-label">外卖接单</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="menu">
+    <view class="menu-item" bindtap="goAbout">
+      <text class="menu-icon">ℹ️</text>
+      <text class="menu-label">关于我们</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="contactService">
+      <text class="menu-icon">📞</text>
+      <text class="menu-label">联系客服</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="logout" wx:if="{{logged}}" bindtap="logout">退出登录</view>
+
+  <view class="version">校园外卖点餐平台 · 小程序 v1.0.0</view>
+</view>

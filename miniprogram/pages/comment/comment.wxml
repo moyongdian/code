@@ -1,0 +1,43 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中…</view>
+
+  <block wx:else>
+    <view class="card" wx:if="{{order}}">
+      <view class="order-line">
+        <text class="muted">订单号</text>
+        <text>{{order.orderNo}}</text>
+      </view>
+      <view class="order-line">
+        <text class="muted">商家</text>
+        <text>{{order.business.name || '—'}}</text>
+      </view>
+      <view class="order-line">
+        <text class="muted">实付</text>
+        <text class="price">¥{{order.actual}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">本次用餐体验如何？</view>
+      <view class="stars">
+        <text wx:for="{{stars}}" wx:key="*this"
+              class="star {{item <= star ? 'on' : ''}}"
+              data-star="{{item}}" bindtap="setStar">★</text>
+      </view>
+      <view class="star-tip">
+        {{star === 5 ? '非常满意' : star === 4 ? '满意' : star === 3 ? '一般' : star === 2 ? '不太满意' : '很不满意'}}
+      </view>
+
+      <textarea class="content" placeholder="说说菜品口味、配送速度、服务态度…"
+                placeholder-class="content-ph" maxlength="200"
+                value="{{content}}" bindinput="onContentInput" />
+      <view class="counter">{{content.length}}/200</view>
+    </view>
+
+    <view class="actions">
+      <button class="btn-primary" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">
+        {{submitting ? '提交中…' : '发表评价'}}
+      </button>
+    </view>
+  </block>
+</view>

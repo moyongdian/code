@@ -1,0 +1,47 @@
+.avatar-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0 26rpx;
+  border-bottom: 1rpx solid #f0f1f4;
+}
+
+.avatar {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: #f2f3f5;
+  margin-left: auto;
+}
+
+.avatar-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #b8bdc8;
+}
+
+.avatar-arrow {
+  font-size: 38rpx;
+  color: #c9ced8;
+  margin-left: 14rpx;
+}
+
+.readonly {
+  color: #a3a9b5;
+}
+
+.picker-value {
+  font-size: 28rpx;
+}
+
+.tip {
+  margin: 8rpx 40rpx 0;
+  font-size: 24rpx;
+  color: #8c94a3;
+  line-height: 1.6;
+}
+
+.actions {
+  padding: 40rpx 24rpx;
+}

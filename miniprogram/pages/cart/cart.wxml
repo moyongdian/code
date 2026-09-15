@@ -1,0 +1,54 @@
+<view class="page">
+  <block wx:if="{{!loading && !groups.length}}">
+    <view class="empty">
+      <text class="empty-icon">🛒</text>
+      <text>购物车还是空的</text>
+    </view>
+    <view class="empty-actions">
+      <button class="btn-primary" bindtap="goHome">去逛逛</button>
+    </view>
+  </block>
+
+  <view wx:elif="{{loading}}" class="loading">加载中…</view>
+
+  <block wx:else>
+    <view class="group" wx:for="{{groups}}" wx:key="bid" wx:for-item="g">
+      <view class="group-head">
+        <text class="group-shop" data-bid="{{g.bid}}" bindtap="checkout">🏪 {{g.name}} ›</text>
+        <text class="group-clear" data-bid="{{g.bid}}" catchtap="clearGroup">清空</text>
+      </view>
+
+      <view class="item" wx:for="{{g.items}}" wx:key="id" wx:for-item="it">
+        <image class="item-img" src="{{it.imgUrl}}" mode="aspectFill" wx:if="{{it.imgUrl}}" />
+        <view class="item-img item-img-ph" wx:else>🍲</view>
+
+        <view class="item-main">
+          <view class="item-name ellipsis">{{it.name}}</view>
+          <view class="item-price">
+            <text class="price">¥{{it.realPriceText}}</text>
+            <text class="price-origin" wx:if="{{it.hasDiscount}}">¥{{it.priceText}}</text>
+          </view>
+          <view class="item-line">小计 ¥{{it.lineTotal}}</view>
+        </view>
+
+        <view class="item-op">
+          <view class="stepper">
+            <view class="step-btn" data-id="{{it.id}}" data-pid="{{it.pid}}" data-delta="-1" bindtap="changeNum">−</view>
+            <view class="step-num">{{it.num}}</view>
+            <view class="step-btn" data-id="{{it.id}}" data-pid="{{it.pid}}" data-delta="1" bindtap="changeNum">+</view>
+          </view>
+          <text class="item-del" data-id="{{it.id}}" bindtap="removeItem">删除</text>
+        </view>
+      </view>
+
+      <view class="group-foot">
+        <text class="group-sum">共 {{g.count}} 件，合计 <text class="price">¥{{g.amountText}}</text></text>
+        <view class="group-btn" data-bid="{{g.bid}}" bindtap="checkout">去结算</view>
+      </view>
+    </view>
+
+    <view class="summary-bar safe-bottom">
+      <text class="summary-text">合计 <text class="price">¥{{totalAmount}}</text>（{{totalCount}} 件）</text>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,43 @@
+<view class="page">
+  <view class="search-bar">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索商品、商家、分类" placeholder-class="search-ph"
+             value="{{keyword}}" bindinput="onSearchInput" confirm-type="search"
+             bindconfirm="onSearchConfirm" focus="{{true}}" />
+      <text class="search-clear" wx:if="{{keyword}}" bindtap="clearKeyword">✕</text>
+    </view>
+    <text class="search-btn" bindtap="onSearchConfirm">搜索</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="loading">搜索中…</view>
+
+  <view wx:elif="{{!list.length}}" class="empty">
+    <text class="empty-icon">🔍</text>
+    <text>没有找到相关商品</text>
+    <view class="empty-tip">试试其他关键词，或清空后浏览全部商品</view>
+  </view>
+
+  <view wx:else>
+    <view class="count">共找到 {{list.length}} 件商品</view>
+    <view class="prod" wx:for="{{list}}" wx:key="id">
+      <image class="prod-img" src="{{item.imgUrl}}" mode="aspectFill" wx:if="{{item.imgUrl}}" />
+      <view class="prod-img prod-img-ph" wx:else>🍲</view>
+
+      <view class="prod-main">
+        <view class="prod-name ellipsis">{{item.name}}</view>
+        <view class="prod-desc ellipsis">{{item.description}}</view>
+        <view class="prod-shop ellipsis" data-bid="{{item.bid}}" bindtap="goBusiness">
+          🏪 {{item.business}} ›
+        </view>
+        <view class="prod-bottom">
+          <view class="prod-price">
+            <text class="price">¥{{item.realPriceText}}</text>
+            <text class="price-origin" wx:if="{{item.hasDiscount}}">¥{{item.priceText}}</text>
+          </view>
+          <view class="add-btn" data-item="{{item}}" catchtap="addToCart">+</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

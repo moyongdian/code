@@ -1,0 +1,129 @@
+.status-head {
+  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
+  color: #fff;
+  padding: 44rpx 32rpx 52rpx;
+}
+
+.status-text {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.status-sub {
+  font-size: 25rpx;
+  opacity: 0.92;
+  margin-top: 12rpx;
+}
+
+.card-title {
+  font-size: 29rpx;
+  font-weight: 700;
+  margin-bottom: 15rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+}
+
+.info-label {
+  width: 170rpx;
+  color: #8c94a3;
+  flex-shrink: 0;
+}
+
+.info-value {
+  flex: 1;
+  color: #1f2430;
+  word-break: break-all;
+}
+
+.info-value.link {
+  color: #2f80ed;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.item-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 12rpx;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.item-img-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.item-main {
+  flex: 1;
+  margin-left: 18rpx;
+  overflow: hidden;
+}
+
+.item-name {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.item-qty {
+  font-size: 23rpx;
+  color: #a3a9b5;
+  margin-top: 8rpx;
+}
+
+.item-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.item-price .price {
+  font-size: 29rpx;
+}
+
+.fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  color: #4a5163;
+}
+
+.fee-cut {
+  color: #ff4d2d;
+}
+
+.fee-free {
+  color: #17a34a;
+}
+
+.fee-row.total {
+  font-size: 29rpx;
+  font-weight: 700;
+}
+
+.fee-row.total .price {
+  font-size: 36rpx;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24rpx 24rpx 40rpx;
+}
+
+.actions > view {
+  margin-left: 20rpx;
+}

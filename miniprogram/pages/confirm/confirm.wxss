@@ -1,0 +1,230 @@
+.confirm-page {
+  padding-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 29rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+/* 地址 */
+.addr-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addr-left {
+  flex: 1;
+  overflow: hidden;
+}
+
+.addr-user {
+  display: flex;
+  align-items: baseline;
+}
+
+.addr-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-right: 18rpx;
+}
+
+.addr-phone {
+  font-size: 26rpx;
+  color: #6b7280;
+}
+
+.addr-detail {
+  font-size: 25rpx;
+  color: #8c94a3;
+  margin-top: 12rpx;
+  line-height: 1.5;
+}
+
+.addr-empty {
+  font-size: 28rpx;
+  color: #ff5a1f;
+}
+
+.addr-arrow {
+  font-size: 40rpx;
+  color: #c9ced8;
+  margin-left: 16rpx;
+}
+
+/* 商品 */
+.biz-name {
+  font-size: 29rpx;
+  font-weight: 700;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.item-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 12rpx;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.item-img-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.item-main {
+  flex: 1;
+  margin-left: 18rpx;
+  overflow: hidden;
+}
+
+.item-name {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.item-qty {
+  font-size: 23rpx;
+  color: #a3a9b5;
+  margin-top: 8rpx;
+}
+
+.item-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.item-price .price {
+  font-size: 29rpx;
+}
+
+/* 费用 */
+.fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14rpx 0;
+  font-size: 26rpx;
+  color: #4a5163;
+}
+
+.fee-cut {
+  color: #ff4d2d;
+}
+
+.fee-free {
+  color: #17a34a;
+}
+
+.fee-row.total {
+  font-size: 29rpx;
+  font-weight: 700;
+}
+
+.fee-row.total .price {
+  font-size: 36rpx;
+}
+
+/* 支付方式 */
+.pay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f7f8fa;
+}
+
+.pay-row:last-child {
+  border-bottom: none;
+}
+
+.pay-name {
+  font-size: 27rpx;
+}
+
+.pay-check {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 2rpx solid #e6e8ee;
+  color: transparent;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 26rpx;
+}
+
+.pay-check.on {
+  background: #ff5a1f;
+  border-color: #ff5a1f;
+  color: #fff;
+}
+
+/* 备注 */
+.remark {
+  width: 100%;
+  height: 130rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.remark-ph {
+  color: #b8bdc8;
+}
+
+/* 提交栏 */
+.submit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 108rpx;
+  background: #fff;
+  border-top: 1rpx solid #f0f1f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28rpx;
+  z-index: 10;
+}
+
+.submit-left {
+  display: flex;
+  align-items: baseline;
+}
+
+.submit-label {
+  font-size: 26rpx;
+  color: #4a5163;
+  margin-right: 12rpx;
+}
+
+.submit-amount {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #ff4d2d;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 700;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 52rpx;
+  border-radius: 999rpx;
+}
+
+.submit-btn.disabled {
+  background: #c9ced8;
+}

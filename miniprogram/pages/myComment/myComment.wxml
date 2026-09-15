@@ -1,0 +1,24 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中…</view>
+
+  <view wx:elif="{{!list.length}}" class="empty">
+    <text class="empty-icon">💬</text>
+    <text>你还没有发表过评价</text>
+  </view>
+
+  <view wx:else>
+    <view class="comment" wx:for="{{list}}" wx:key="id">
+      <view class="comment-head">
+        <text class="comment-shop ellipsis" data-bid="{{item.bid}}" bindtap="goBusiness">
+          🏪 {{item.businessName}} ›
+        </text>
+        <text class="comment-time">{{item.time}}</text>
+      </view>
+      <view class="comment-star">{{item.starText}}</view>
+      <view class="comment-content">{{item.content}}</view>
+      <view class="comment-foot">
+        <text class="comment-del" data-id="{{item.id}}" bindtap="remove">删除评价</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,202 @@
+/* 校园外卖 — 全局样式 */
+page {
+  background: #f5f6f8;
+  color: #1f2430;
+  font-size: 28rpx;
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, input, textarea, button, image, scroll-view, swiper {
+  box-sizing: border-box;
+}
+
+/* ---------- 通用容器 ---------- */
+.page {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 20rpx 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(24, 33, 56, 0.04);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- 文本 ---------- */
+.title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.sub {
+  font-size: 24rpx;
+  color: #8c94a3;
+}
+
+.muted {
+  color: #8c94a3;
+}
+
+.price {
+  color: #ff4d2d;
+  font-weight: 700;
+}
+
+.price-origin {
+  color: #a3a9b5;
+  font-size: 24rpx;
+  text-decoration: line-through;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* ---------- 按钮 ---------- */
+.btn-primary {
+  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
+  color: #fff;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: none;
+  line-height: 88rpx;
+  height: 88rpx;
+}
+
+.btn-primary[disabled] {
+  opacity: 0.55;
+  color: #fff;
+}
+
+.btn-ghost {
+  background: #fff;
+  color: #ff5a1f;
+  border: 2rpx solid #ffb894;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  line-height: 64rpx;
+  height: 64rpx;
+  padding: 0 28rpx;
+}
+
+.btn-plain {
+  background: #f2f3f5;
+  color: #4a5163;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  line-height: 64rpx;
+  height: 64rpx;
+  padding: 0 28rpx;
+  border: none;
+}
+
+/* ---------- 标签 ---------- */
+.tag {
+  display: inline-block;
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  background: #fff0e8;
+  color: #ff5a1f;
+}
+
+.tag-gray {
+  background: #f0f1f4;
+  color: #6b7280;
+}
+
+.tag-green {
+  background: #e8f8ee;
+  color: #17a34a;
+}
+
+/* ---------- 表单 ---------- */
+.field {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid #f0f1f4;
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  width: 180rpx;
+  color: #4a5163;
+  font-size: 28rpx;
+}
+
+.field-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.field-input-placeholder {
+  color: #b8bdc8;
+}
+
+/* ---------- 空态 / 加载 ---------- */
+.empty {
+  padding: 120rpx 0;
+  text-align: center;
+  color: #a3a9b5;
+  font-size: 26rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 16rpx;
+  opacity: 0.5;
+}
+
+.loading {
+  padding: 60rpx 0;
+  text-align: center;
+  color: #a3a9b5;
+  font-size: 26rpx;
+}
+
+/* ---------- 分割 ---------- */
+.divider {
+  height: 1rpx;
+  background: #f0f1f4;
+  margin: 20rpx 0;
+}
+
+/* ---------- 安全区适配 ---------- */
+.safe-bottom {
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}

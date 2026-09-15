@@ -1,0 +1,68 @@
+.about {
+  padding-bottom: 60rpx;
+}
+
+.hero {
+  background: linear-gradient(135deg, #ff8a4c, #ff5a1f);
+  color: #fff;
+  text-align: center;
+  padding: 70rpx 0 60rpx;
+}
+
+.logo {
+  font-size: 100rpx;
+  line-height: 1;
+}
+
+.name {
+  font-size: 38rpx;
+  font-weight: 700;
+  margin-top: 18rpx;
+}
+
+.ver {
+  font-size: 24rpx;
+  opacity: 0.9;
+  margin-top: 10rpx;
+}
+
+.card-title {
+  font-size: 29rpx;
+  font-weight: 700;
+  margin-bottom: 16rpx;
+}
+
+.para {
+  font-size: 26rpx;
+  color: #4a5163;
+  line-height: 1.85;
+}
+
+.feature {
+  font-size: 26rpx;
+  color: #4a5163;
+  padding: 12rpx 0;
+}
+
+.row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+}
+
+.link {
+  color: #2f80ed;
+}
+
+.muted {
+  color: #8c94a3;
+}
+
+.foot {
+  text-align: center;
+  font-size: 22rpx;
+  color: #b8bdc8;
+  padding: 30rpx 0;
+}

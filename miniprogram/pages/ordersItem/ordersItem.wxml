@@ -1,0 +1,109 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中…</view>
+
+  <block wx:elif="{{order}}">
+    <!-- 状态头 -->
+    <view class="status-head">
+      <view class="status-text">{{order.statusText}}</view>
+      <view class="status-sub" wx:if="{{order.status === '待支付'}}">请尽快完成支付</view>
+      <view class="status-sub" wx:elif="{{order.status === '待发货'}}">商家正在准备你的餐品</view>
+      <view class="status-sub" wx:elif="{{order.status === '正在配送' || order.status === '待收货'}}">骑手正在配送途中</view>
+      <view class="status-sub" wx:elif="{{order.status === '已完成'}}">感谢惠顾，期待再次光临</view>
+      <view class="status-sub" wx:elif="{{order.status === '已取消'}}">订单已取消</view>
+    </view>
+
+    <!-- 收货信息 -->
+    <view class="card">
+      <view class="card-title">📍 收货信息</view>
+      <view class="info-row">
+        <text class="info-label">收货人</text>
+        <text class="info-value">{{order.user}}</text>
+      </view>
+      <view class="info-row" bindtap="callPhone">
+        <text class="info-label">联系电话</text>
+        <text class="info-value link">{{order.phone}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">收货地址</text>
+        <text class="info-value">{{order.addressText || '—'}}</text>
+      </view>
+      <view class="info-row" wx:if="{{order.comment}}">
+        <text class="info-label">订单备注</text>
+        <text class="info-value">{{order.comment}}</text>
+      </view>
+    </view>
+
+    <!-- 商品明细 -->
+    <view class="card">
+      <view class="card-title">🏪 {{order.businessName || '商品明细'}}</view>
+      <view class="divider"></view>
+      <view class="item" wx:for="{{items}}" wx:key="id">
+        <image class="item-img" src="{{item.imgUrl}}" mode="aspectFill" wx:if="{{item.imgUrl}}" />
+        <view class="item-img item-img-ph" wx:else>🍲</view>
+        <view class="item-main">
+          <view class="item-name ellipsis">{{item.name}}</view>
+          <view class="item-qty">×{{item.num}}</view>
+        </view>
+        <view class="item-price">
+          <text class="price">¥{{item.realPriceText}}</text>
+          <text class="price-origin">¥{{item.priceText}}</text>
+        </view>
+      </view>
+
+      <view class="divider"></view>
+      <view class="fee-row">
+        <text>商品原价</text>
+        <text>¥{{order.amountText}}</text>
+      </view>
+      <view class="fee-row">
+        <text>7 折优惠</text>
+        <text class="fee-cut">-¥{{order.discountText}}</text>
+      </view>
+      <view class="fee-row">
+        <text>配送费</text>
+        <text class="fee-free">免费</text>
+      </view>
+      <view class="fee-row total">
+        <text>实付款</text>
+        <text class="price">¥{{order.actualText}}</text>
+      </view>
+    </view>
+
+    <!-- 订单信息 -->
+    <view class="card">
+      <view class="card-title">📄 订单信息</view>
+      <view class="info-row">
+        <text class="info-label">订单编号</text>
+        <text class="info-value" bindtap="copyOrderNo">{{order.orderNo}} 复制</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">下单时间</text>
+        <text class="info-value">{{order.timeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">支付时间</text>
+        <text class="info-value">{{order.payTimeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">支付方式</text>
+        <text class="info-value">{{order.payType || '—'}}</text>
+      </view>
+      <view class="info-row" wx:if="{{order.deliverymanName}}">
+        <text class="info-label">配送骑手</text>
+        <text class="info-value">{{order.deliverymanName}} {{order.deliverymanPhone}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">发票说明</text>
+        <text class="info-value">如需发票请联系商家</text>
+      </view>
+    </view>
+
+    <!-- 操作 -->
+    <view class="actions">
+      <view class="btn-plain" wx:if="{{order.canCancel}}" bindtap="cancel">取消订单</view>
+      <view class="btn-primary" wx:if="{{order.canPay}}" bindtap="pay">去支付</view>
+      <view class="btn-primary" wx:if="{{order.canReceive}}" bindtap="receive">确认收货</view>
+      <view class="btn-ghost" wx:if="{{order.canComment}}" bindtap="goComment">去评价</view>
+    </view>
+  </block>
+</view>

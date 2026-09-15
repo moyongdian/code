@@ -1,0 +1,39 @@
+<view class="login-page">
+  <view class="brand">
+    <view class="logo">🍜</view>
+    <view class="brand-name">校园外卖点餐</view>
+    <view class="brand-sub">新鲜现炒 · 30 分钟送达</view>
+  </view>
+
+  <view class="form-card">
+    <view class="field">
+      <text class="field-label">用户名</text>
+      <input class="field-input" placeholder="请输入用户名" placeholder-class="field-input-placeholder"
+             value="{{username}}" data-field="username" bindinput="onInput" />
+    </view>
+    <view class="field">
+      <text class="field-label">密码</text>
+      <input class="field-input" password placeholder="请输入密码" placeholder-class="field-input-placeholder"
+             value="{{password}}" data-field="password" bindinput="onInput"
+             confirm-type="done" bindconfirm="onSubmit" />
+    </view>
+
+    <button class="btn-primary login-btn" loading="{{loading}}" disabled="{{loading}}" bindtap="onSubmit">
+      {{loading ? '登录中…' : '登 录'}}
+    </button>
+
+    <view class="links">
+      <text class="link" bindtap="goRegister">注册账号</text>
+      <text class="link" bindtap="goReset">忘记密码</text>
+    </view>
+  </view>
+
+  <view class="demo">
+    <view class="demo-title">联调测试账号（点击填充）</view>
+    <view class="demo-list">
+      <view class="demo-item" data-k="user" bindtap="useDemo">普通用户 test / 123456</view>
+      <view class="demo-item" data-k="shop" bindtap="useDemo">商家店主 shop / 123456</view>
+      <view class="demo-item" data-k="admin" bindtap="useDemo">管理员 admin / admin123</view>
+    </view>
+  </view>
+</view>

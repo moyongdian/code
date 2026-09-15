@@ -1,0 +1,24 @@
+.req {
+  color: #ff4d2d;
+}
+
+.tip {
+  margin: 8rpx 40rpx 0;
+  font-size: 24rpx;
+  color: #8c94a3;
+  line-height: 1.6;
+}
+
+.actions {
+  padding: 40rpx 24rpx;
+}
+
+.link-row {
+  text-align: center;
+  margin-top: 28rpx;
+}
+
+.link {
+  font-size: 26rpx;
+  color: #ff5a1f;
+}

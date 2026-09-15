@@ -1,0 +1,15 @@
+.tip {
+  margin: 8rpx 40rpx 0;
+  font-size: 24rpx;
+  color: #8c94a3;
+  line-height: 1.9;
+}
+
+.hl {
+  color: #ff5a1f;
+  font-weight: 700;
+}
+
+.actions {
+  padding: 48rpx 24rpx;
+}

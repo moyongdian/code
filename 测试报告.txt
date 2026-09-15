@@ -1,0 +1,113 @@
+
+======================================================================
+1. 服务可达性与公开接口
+======================================================================
+  [PASS] GET /health   HTTP 200
+  [PASS] GET / 接口索引   HTTP 200 name=校园外卖点餐平台-后端服务
+  [PASS] GET /banners/selectAll   HTTP 200
+  [PASS] GET /business/selectAllApp 商家列表   商家数=1
+  [PASS] GET /product/selectByApp 商品列表   HTTP 200
+  [PASS] GET /notice/selectAllApp 公告   HTTP 200
+  [PASS] GET /news/selectNewsData 新闻   HTTP 200
+
+======================================================================
+2. 认证：三角色登录 + 负例
+======================================================================
+  [PASS] 登录 admin (管理员)   token长度=175
+  [PASS] 登录 test (用户)   token长度=171
+  [PASS] 登录 shop (商家)   token长度=171
+  [PASS] 错误密码被拒绝   HTTP 200 code=500
+  [PASS] 不存在用户被拒绝   HTTP 200
+
+======================================================================
+3. 鉴权防护
+======================================================================
+  [PASS] 无 token 被拒(401)   HTTP 200
+  [PASS] 伪造 token 被拒(401)   HTTP 200
+
+======================================================================
+4. 管理端查询接口
+======================================================================
+  [PASS] GET /user/selectByPage   total=2
+  [PASS] GET /admin/selectByPage   total=1
+  [PASS] GET /business/selectByPage   total=1
+  [PASS] GET /category/selectByPage   total=2
+  [PASS] GET /product/selectByPage   total=2
+  [PASS] GET /orders/selectByPage   total=1
+  [PASS] GET /address/selectByPage   total=0
+  [PASS] GET /comment/selectByPage   total=1
+  [PASS] GET /notice/selectByPage   total=1
+  [PASS] GET /news/selectByPage   total=0
+  [PASS] GET /logs/selectByPage   total=25
+  [PASS] GET /user/selectAll   条数=2
+  [PASS] GET /business/selectAll   条数=1
+  [PASS] GET /category/selectAll   条数=2
+  [PASS] GET /product/selectAll   条数=2
+  [PASS] GET /orders/selectAll   条数=1
+  [PASS] GET /orderItem/selectAll   条数=1
+  [PASS] GET /banners/selectAll   条数=0
+  [PASS] GET /admin/selectAll   条数=1
+  [PASS] GET /comment/selectAll   条数=1
+  [PASS] GET /notice/selectAll   条数=1
+  [PASS] GET /news/selectAll   条数=0
+  [PASS] GET /dashboard 统计   用户=3 商家=1 订单=1
+  [PASS] GET /charts 图表   HTTP 200
+  [PASS] GET /user/selectById/:id   HTTP 200
+
+======================================================================
+5. CRUD：分类与商品（以商家 shop 身份）
+======================================================================
+  [PASS] POST /category/add 新增分类(shop)   HTTP 200 msg=success
+  [PASS] 新分类可查到   id=4
+  [PASS] 管理员无商家时被拒绝(负例)   HTTP 200 msg=未找到您的商家信息
+  [PASS] PUT /category/update 修改分类   HTTP 200
+  [PASS] POST /product/add 新增商品(shop)   HTTP 200 msg=success
+  [PASS] 新商品可查到   id=4
+  [PASS] DELETE /product/delete/:id 清理商品   HTTP 200
+  [PASS] DELETE /category/delete/:id 清理分类   HTTP 200
+
+======================================================================
+6. 核心业务流：注册 → 加购 → 改密 → 下单 → 支付 → 评价
+======================================================================
+  [PASS] POST /register 注册(at537113)   HTTP 200 msg=success
+  [PASS] 新用户可登录   token长度=171
+  [PASS] 重复用户名被拒绝   HTTP 200
+  [PASS] 超长用户名被拒绝   HTTP 200
+  [PASS] 新用户出现在列表   uid=6
+  [PASS] 存在可下单商品   商品=经典奶茶 商家=1
+  [PASS] POST /cart/add 加入购物车   HTTP 200
+  [PASS] GET /cart/selectAll 查询购物车   条目=1
+  [PASS] GET /cart/calc 金额计算(7折)   data=14
+  [PASS] POST /address/add 新增地址   HTTP 200
+  [PASS] 地址可查询   addressId=2
+  [PASS] POST /orders/addOrder 下单   HTTP 200 msg=success
+  [PASS] 订单出现在订单列表   orderId=2 orderNo=143351612214137217
+  [PASS] GET /orders/selectById 订单详情   HTTP 200
+  [PASS] 订单明细已生成   明细=1条
+  [PASS] 7 折金额比例正确(0.70)   amount=20.0 actual=14.0 比例=0.7000
+  [PASS] PUT /orders/update 支付改状态   HTTP 200
+  [PASS] POST /comment/add 评价   HTTP 200 msg=success
+  [PASS] 评价可公开查询   HTTP 200
+  [PASS] 清理测试用户   HTTP 200
+
+======================================================================
+7. 导出与文件上传
+======================================================================
+  [PASS] GET /user/export 导出 Excel   HTTP 200 字节=6258
+  [PASS] POST /file/upload 上传   HTTP 200 data=http://localhost:9090/file/yulan/1789482619313_dsh
+
+======================================================================
+8. 安全：改密后旧 token 失效（tokenVersion 机制）
+======================================================================
+  [PASS] PUT /user/updatePassword 改密   HTTP 200 msg=success
+  [PASS] 改密后旧 token 失效   HTTP 200 code=401
+  [PASS] 新密码可登录   token长度=171
+
+======================================================================
+测试结果汇总
+======================================================================
+  通过: 72
+  失败: 0
+  跳过: 0
+
+  结论: 全部通过 ✅

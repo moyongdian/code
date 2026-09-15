@@ -1,0 +1,74 @@
+.shop {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  margin: 20rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(24, 33, 56, 0.04);
+}
+
+.shop-logo {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 18rpx;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.shop-logo-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46rpx;
+  font-weight: 700;
+  color: #ff8a4c;
+  background: #fff2ea;
+}
+
+.shop-main {
+  flex: 1;
+  margin-left: 20rpx;
+  overflow: hidden;
+}
+
+.shop-name {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.shop-meta {
+  font-size: 23rpx;
+  color: #8c94a3;
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.shop-score {
+  color: #ff9a2e;
+  font-weight: 600;
+}
+
+.shop-dot {
+  margin: 0 8rpx;
+}
+
+.shop-addr {
+  font-size: 23rpx;
+  color: #a3a9b5;
+  margin-top: 10rpx;
+}
+
+.shop-time {
+  font-size: 21rpx;
+  color: #c9ced8;
+  margin-top: 8rpx;
+}
+
+.cancel {
+  font-size: 24rpx;
+  color: #a3a9b5;
+  padding: 10rpx 0 10rpx 16rpx;
+  flex-shrink: 0;
+}

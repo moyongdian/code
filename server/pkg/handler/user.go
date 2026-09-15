@@ -64,13 +64,19 @@ func (a *App) userUpdate(c *gin.Context) {
 		core.Fail(c, "密码处理失败")
 		return
 	}
+	// 仅当请求确实携带了密码时才更新 password 列。
+	// 否则空字符串会被写入 password 字段，导致用户密码被清空、无法再登录。
+	passwordProvided := pwd != ""
 	u.Password = pwd
 	// 密码变更时令牌版本 +1，旧 token 失效
 	var old models.User
-	if pwd != "" && a.DB.First(&old, u.ID).Error == nil && old.Password != pwd {
+	if passwordProvided && a.DB.First(&old, u.ID).Error == nil && old.Password != pwd {
 		u.TokenVersion = old.TokenVersion + 1
 	}
-	cols := []string{"username", "password", "name", "phone", "email", "address", "avatar", "role", "sex", "token_version"}
+	cols := []string{"username", "name", "phone", "email", "address", "avatar", "role", "sex"}
+	if passwordProvided {
+		cols = append(cols, "password", "token_version")
+	}
 	if err := a.DB.Model(&models.User{}).Select(cols).Where("id = ?", u.ID).Updates(&u).Error; err != nil {
 		core.Fail(c, "更新失败")
 		return

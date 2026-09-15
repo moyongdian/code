@@ -1,0 +1,29 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中…</view>
+
+  <view wx:elif="{{!list.length}}" class="empty">
+    <text class="empty-icon">☆</text>
+    <text>还没有收藏的商家</text>
+  </view>
+
+  <view wx:else>
+    <view class="shop" wx:for="{{list}}" wx:key="bid" data-bid="{{item.bid}}" bindtap="goBusiness">
+      <image class="shop-logo" src="{{item.logoUrl}}" mode="aspectFill" wx:if="{{item.logoUrl}}" />
+      <view class="shop-logo shop-logo-ph" wx:else>{{item.name[0]}}</view>
+
+      <view class="shop-main">
+        <view class="shop-name ellipsis">{{item.name}}</view>
+        <view class="shop-meta">
+          <text class="shop-score">★ {{item.scoreText}}</text>
+          <text class="shop-dot">·</text>
+          <text>{{item.openText}}</text>
+          <text class="shop-dot">·</text>
+          <text>起送 ¥{{item.minAmountText}}</text>
+        </view>
+        <view class="shop-addr ellipsis">{{item.address || item.introduce}}</view>
+      </view>
+
+      <text class="cancel" data-bid="{{item.bid}}" catchtap="cancelCollect">取消</text>
+    </view>
+  </view>
+</view>

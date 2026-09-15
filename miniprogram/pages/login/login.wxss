@@ -1,0 +1,75 @@
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ff8a4c 0%, #ff5a1f 42%, #f5f6f8 42%, #f5f6f8 100%);
+  padding: 0 40rpx;
+}
+
+.brand {
+  padding: 90rpx 0 70rpx;
+  text-align: center;
+  color: #fff;
+}
+
+.logo {
+  font-size: 96rpx;
+  line-height: 1;
+  margin-bottom: 20rpx;
+}
+
+.brand-name {
+  font-size: 44rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+}
+
+.brand-sub {
+  font-size: 24rpx;
+  opacity: 0.9;
+  margin-top: 12rpx;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 36rpx 32rpx;
+  box-shadow: 0 12rpx 40rpx rgba(255, 90, 31, 0.12);
+}
+
+.login-btn {
+  margin-top: 44rpx;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32rpx;
+}
+
+.link {
+  font-size: 26rpx;
+  color: #ff5a1f;
+}
+
+.demo {
+  margin-top: 48rpx;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+}
+
+.demo-title {
+  font-size: 24rpx;
+  color: #8c94a3;
+  margin-bottom: 14rpx;
+}
+
+.demo-item {
+  font-size: 25rpx;
+  color: #4a5163;
+  padding: 12rpx 0;
+  border-bottom: 1rpx dashed #e6e8ee;
+}
+
+.demo-item:last-child {
+  border-bottom: none;
+}

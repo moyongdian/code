@@ -1,0 +1,31 @@
+<view class="page">
+  <view wx:if="{{selectMode}}" class="mode-tip">点击地址即可选择并返回</view>
+
+  <view wx:if="{{loading}}" class="loading">加载中…</view>
+
+  <view wx:elif="{{!list.length}}" class="empty">
+    <text class="empty-icon">📍</text>
+    <text>还没有收货地址</text>
+  </view>
+
+  <view wx:else>
+    <view class="addr" wx:for="{{list}}" wx:key="id"
+          data-item="{{item}}" bindtap="choose">
+      <view class="addr-main">
+        <view class="addr-top">
+          <text class="addr-name">{{item.user}}</text>
+          <text class="addr-phone" data-phone="{{item.phone}}" catchtap="callPhone">{{item.phone}}</text>
+        </view>
+        <view class="addr-detail">{{item.address}}</view>
+      </view>
+      <view class="addr-op">
+        <text class="op" data-id="{{item.id}}" catchtap="edit">编辑</text>
+        <text class="op del" data-id="{{item.id}}" catchtap="remove">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="add-bar safe-bottom">
+    <button class="btn-primary" bindtap="add">+ 新增收货地址</button>
+  </view>
+</view>
